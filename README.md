@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+﻿# Caderno de aventuras
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Trabalho Prático 1 — Interface Mobile. Aplicação simples de RPG em React Native com Expo e React Navigation.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Executar no Expo Go
 
 ```bash
-npm run reset-project
+cd meu-app
+npm install
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Abra o Expo Go compatível com o SDK 57 e leia o QR code. Computador e celular devem estar na mesma rede. Também é possível executar a versão web com `npm run web`.
 
-### Other setup steps
+## Telas e funcionalidades
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- **Início:** campanha fictícia, resumo da personagem e acesso à ficha e ao diário.
+- **Minha ficha:** personagem pronta, atributos, equipamento, história e botões para alterar os pontos de vida entre 0 e 28.
+- **Diário:** listagem de anotações com FlatList e filtro de favoritas.
+- **Nova anotação:** formulário com validação de campos obrigatórios.
 
-## Learn more
+Todos os dados são fictícios e locais. Não há chamadas a API, autenticação ou banco de dados. Vida, anotações e favoritas ficam no estado do componente App e são reiniciadas ao recarregar o aplicativo. A ficha inicial pode ser personalizada em `src/data/mock.ts`.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Estrutura
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```text
+App.tsx                    # Estado compartilhado e React Navigation
+index.ts                   # Registro do aplicativo no Expo
+src/
+  components/              # Botão e estrutura reutilizável das telas
+  data/mock.ts             # Personagem e anotações fictícias
+  screens/                 # Telas funcionais
+  styles.ts                # Cores e estilos compartilhados
+assets/images/camp.png     # Ilustração local
+```
 
-## Join the community
+O projeto utiliza componentes funcionais, Props, useState, View, Text, Image, Pressable, TextInput, StyleSheet e Flexbox. No celular, Screen utiliza ScrollView. Na web, Screen.web.tsx utiliza rolagem do navegador, sem declarar ScrollView. As listas utilizam FlatList, cujo mecanismo de rolagem é interno ao React Native.
 
-Join our community of developers creating universal apps.
+A configuração original recomendava Expo Router. Foi substituído por React Navigation para atender ao enunciado do trabalho; não há roteamento por arquivos.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Verificação
+
+```bash
+npm run typecheck
+npm run lint
+npx expo-doctor
+npx expo export --platform all
+```
+
+Roteiro manual no Expo Go:
+
+1. Abra a ficha e diminua/aumente a vida. Confira os limites 0 e 28.
+2. Volte ao início, reabra a ficha e confira que a vida foi mantida.
+3. Abra o diário, favorite/desfavorite uma anotação e teste o filtro.
+4. Crie uma anotação. Campos vazios devem exibir uma mensagem.
+5. Salve título e texto válidos. Confira a anotação na lista e o contador no início.
+6. Teste voltar, cancelar e digitar com o teclado aberto.
+
+A compilação Android/iOS não substitui o teste físico no Expo Go.
