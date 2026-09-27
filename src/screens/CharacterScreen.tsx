@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Screen } from "../components/Screen";
 import { Button } from "../components/Button";
 import { character } from "../data/mock";
-import { colors, styles } from "../styles";
+import { colors, serif, styles } from "../styles";
 
 export function CharacterScreen({
   health,
@@ -28,6 +28,14 @@ export function CharacterScreen({
           {health}
           <Text style={styles.subtitle}> / {character.maxHealth} PV</Text>
         </Text>
+        <View accessible={false} style={local.healthTrack}>
+          <View
+            style={[
+              local.healthFill,
+              { width: `${(health / character.maxHealth) * 100}%` },
+            ]}
+          />
+        </View>
         <View style={styles.row}>
           <View style={styles.grow}>
             <Button
@@ -74,19 +82,38 @@ export function CharacterScreen({
   );
 }
 const local = StyleSheet.create({
-  health: { color: colors.primary, fontSize: 42, fontWeight: "800" },
+  healthTrack: {
+    height: 12,
+    backgroundColor: "#CDB78E",
+    borderWidth: 1,
+    borderColor: "#976E45",
+    padding: 2,
+  },
+  healthFill: { height: "100%", backgroundColor: colors.red },
+  health: {
+    color: colors.red,
+    fontFamily: serif,
+    fontSize: 46,
+    fontWeight: "700",
+  },
   attributes: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
   attribute: {
     flexGrow: 1,
     flexBasis: "30%",
-    backgroundColor: colors.card,
-    borderWidth: 1,
+    backgroundColor: "#EAD4A7",
+    borderWidth: 2,
+    borderBottomWidth: 4,
     borderColor: colors.border,
-    borderRadius: 14,
+    borderRadius: 3,
     alignItems: "center",
     padding: 14,
     gap: 5,
   },
-  value: { color: colors.text, fontSize: 25, fontWeight: "700" },
+  value: {
+    color: colors.text,
+    fontFamily: serif,
+    fontSize: 29,
+    fontWeight: "700",
+  },
   modifier: { color: colors.primary, fontSize: 14, fontWeight: "600" },
 });

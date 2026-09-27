@@ -4,7 +4,7 @@ import type { Routes } from "../../App";
 import { Screen } from "../components/Screen";
 import { Button } from "../components/Button";
 import { character } from "../data/mock";
-import { colors, styles } from "../styles";
+import { colors, serif, styles } from "../styles";
 
 export function HomeScreen({
   navigation,
@@ -12,20 +12,26 @@ export function HomeScreen({
 }: NativeStackScreenProps<Routes, "Home"> & { noteCount: number }) {
   return (
     <Screen>
-      <View style={{ gap: 8 }}>
-        <Text style={styles.eyebrow}>SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</Text>
-        <Text style={styles.title}>
+      <View style={{ gap: 10, alignItems: "center" }}>
+        <Text style={styles.ornament} accessible={false}>
+          ━━━━ ◆ ━━━━
+        </Text>
+        <Text style={[styles.eyebrow, { textAlign: "center" }]}>
+          SEU COMPANHEIRO DE JORNADA
+        </Text>
+        <Text style={[styles.title, { textAlign: "center" }]}>
           Toda aventura{"\n"}merece ser lembrada.
         </Text>
-        <Text style={styles.subtitle}>
+        <Text style={[styles.subtitle, { textAlign: "center" }]}>
           Sua personagem e as memórias da campanha, sempre por perto.
         </Text>
       </View>
       <View style={local.hero}>
         <Image
-          source={require("../../assets/images/camp.png")}
+          source={require("../../assets/images/medieval-forest.png")}
           style={local.art}
-          accessibilityLabel="Ilustração de montanhas e uma tenda na floresta"
+          resizeMode="cover"
+          accessibilityLabel="Pixel art de ruínas medievais em uma floresta encantada"
         />
         <View style={local.heroText}>
           <Text style={local.tag}>CAMPANHA ATUAL</Text>
@@ -33,7 +39,9 @@ export function HomeScreen({
           <Text style={local.caption}>Valeverde · Sessão 03</Text>
         </View>
       </View>
-      <Text style={styles.section}>À mesa, aventureiro</Text>
+      <Text style={[styles.section, { textAlign: "center" }]}>
+        — À mesa, aventureiro —
+      </Text>
       <View style={styles.card}>
         <Text style={styles.eyebrow}>MINHA PERSONAGEM</Text>
         <Text style={styles.section}>{character.name}</Text>
@@ -45,6 +53,9 @@ export function HomeScreen({
           onPress={() => navigation.navigate("Character")}
         />
       </View>
+      <Text style={styles.ornament} accessible={false}>
+        ━━━━ ◆ ━━━━
+      </Text>
       <View style={styles.card}>
         <View style={styles.row}>
           <Text style={[styles.section, styles.grow]}>Diário da campanha</Text>
@@ -63,18 +74,42 @@ export function HomeScreen({
   );
 }
 const local = StyleSheet.create({
-  hero: { backgroundColor: "#203F35", borderRadius: 20, overflow: "hidden" },
-  art: { width: "100%", height: 160, resizeMode: "cover" },
-  heroText: { padding: 20, gap: 7 },
-  tag: { color: "#C9D8AF", fontSize: 10, letterSpacing: 2, fontWeight: "700" },
-  campaign: { color: "#FFF9E9", fontSize: 25, fontWeight: "700" },
-  caption: { color: "#D3DFD5", fontSize: 13 },
+  hero: {
+    backgroundColor: colors.wood,
+    borderRadius: 3,
+    borderWidth: 4,
+    borderColor: "#6C482A",
+    borderBottomWidth: 6,
+    overflow: "hidden",
+  },
+  art: { width: "100%", height: 200 },
+  heroText: {
+    padding: 18,
+    gap: 7,
+    borderTopWidth: 2,
+    borderTopColor: colors.accent,
+  },
+  tag: {
+    color: colors.gold,
+    fontSize: 10,
+    letterSpacing: 2,
+    fontWeight: "700",
+  },
+  campaign: {
+    color: "#FFF0CF",
+    fontFamily: serif,
+    fontSize: 28,
+    fontWeight: "700",
+  },
+  caption: { color: "#D6BC93", fontSize: 13 },
   count: {
-    backgroundColor: "#E6ECE4",
+    backgroundColor: "#DBC08D",
     color: colors.primary,
     paddingHorizontal: 12,
     paddingVertical: 5,
-    borderRadius: 10,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
     fontWeight: "700",
   },
 });

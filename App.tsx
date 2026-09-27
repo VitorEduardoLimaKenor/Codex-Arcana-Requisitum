@@ -7,7 +7,7 @@ import { initialNotes, character } from "./src/data/mock";
 import { HomeScreen } from "./src/screens/HomeScreen";
 import { CharacterScreen } from "./src/screens/CharacterScreen";
 import { NotesScreen, NewNoteScreen } from "./src/screens/NotesScreen";
-import { colors } from "./src/styles";
+import { colors, serif } from "./src/styles";
 
 export type Routes = {
   Home: undefined;
@@ -34,12 +34,19 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <NavigationContainer theme={theme}>
         <Stack.Navigator
           screenOptions={{
             headerShadowVisible: false,
-            headerTitleStyle: { fontWeight: "700" },
+            headerStyle: { backgroundColor: colors.wood },
+            headerTintColor: colors.gold,
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: serif,
+              fontSize: 20,
+              fontWeight: "700",
+            },
             headerBackButtonDisplayMode: "minimal",
             contentStyle: { backgroundColor: colors.background },
           }}
