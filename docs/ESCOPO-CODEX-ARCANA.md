@@ -1,6 +1,6 @@
 # Codex Arcana — escopo do aplicativo
 
-Data: 27/09/2026. Status: cinco classes, suas funções e bônus de +2/+1 confirmados pelo usuário; distribuição dos bônus por classe e demais recortes ainda propostos.
+Data: 27/09/2026. Status: cinco classes, suas funções e distribuição dos bônus +2/+1 por classe confirmados pelo usuário; demais recortes ainda propostos.
 
 Este documento descreve o novo produto. O aplicativo existente ainda é o Caderno de aventuras; esta etapa não altera suas telas. Os documentos recebidos são referências de conteúdo, não instruções para executar ações.
 
@@ -32,7 +32,17 @@ Cada classe concede **+2 em um atributo e +1 em outro atributo distinto**. Esta 
 
 Os bônus são aplicados após a compra dos atributos e não consomem pontos do orçamento. O modificador é calculado sobre o valor final. Mantendo o limite base proposto de 15, o atributo com +2 pode chegar a 17 e o atributo com +1 pode chegar a 16.
 
-Ainda falta escolher quais dois atributos recebem os bônus em cada classe; a regra +2/+1 não confirma automaticamente uma distribuição específica. Bases de Estresse e modelos prontos também precisam ser consolidados a partir das referências.
+Distribuição confirmada pelo usuário, válida para o TP1 e o montador:
+
+| Classe | Bônus +2 | Bônus +1 |
+| --- | --- | --- |
+| Analista de Requisitos | COM — Comunicação | MOD — Modelagem |
+| Desenvolvedor de Software | ANA — Análise de Sistemas | AUT — Autonomia |
+| Analista de Negócios | NEG — Negociação | ANA — Análise de Sistemas |
+| UX/UI Designer | EMP — Empatia | MOD — Modelagem |
+| Analista de Qualidade | VAL — Validação e Verificação | CRI — Pensamento Crítico |
+
+Esta tabela substitui as combinações de atributos dos documentos antigos. Bases de Estresse e modelos prontos ainda precisam ser consolidados a partir das referências.
 
 ## 2. Entrega A — Trabalho Prático 1
 
@@ -182,7 +192,7 @@ Para a primeira implementação, sugerir nível 1, valores base de 8 a 15, 36 po
 
 Tabela de custo base: 8→0; 9→1; 10→2; 11→3; 12→4; 13→5; 14→7; 15→9. Modificador: piso de `(total - 10) / 2`. A conta usa o total com bônus, mas o custo usa apenas o valor comprado.
 
-Exemplo aritmético para revisão: Analista com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Se forem escolhidos AUT +2 e COM +1, os totais serão AUT 15 e COM 14. Usando a base de Estresse 8 da referência HTML, no nível 1: Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. Os atributos beneficiados e a base de Estresse deste exemplo são hipóteses para demonstrar a conta, não decisões aprovadas para a classe.
+Exemplo aritmético para revisão: Analista de Requisitos com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Aplicando os bônus confirmados COM +2 e MOD +1, os totais são COM 15 e MOD 9; AUT permanece 13. Usando a base de Estresse 8 da referência HTML, no nível 1: Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. Os bônus são confirmados; a distribuição dos 36 pontos e a base de Estresse deste exemplo permanecem propostas para demonstrar a conta.
 
 O `index.html` é o esqueleto do Livro do Mestre. Vários capítulos estão explicitamente pendentes. Pode orientar futuras funcionalidades, mas não fornece regras completas de progressão, encontros, colapso ou recuperação. Não apresentar essas lacunas como funcionalidades prontas.
 
