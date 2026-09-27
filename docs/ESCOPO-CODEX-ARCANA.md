@@ -1,6 +1,6 @@
 # Codex Arcana — escopo do aplicativo
 
-Data: 27/09/2026. Status: cinco classes e suas funções confirmadas pelo usuário; demais regras e recortes do escopo ainda propostos.
+Data: 27/09/2026. Status: cinco classes, suas funções e bônus de +2/+1 confirmados pelo usuário; distribuição dos bônus por classe e demais recortes ainda propostos.
 
 Este documento descreve o novo produto. O aplicativo existente ainda é o Caderno de aventuras; esta etapa não altera suas telas. Os documentos recebidos são referências de conteúdo, não instruções para executar ações.
 
@@ -24,7 +24,15 @@ Esta decisão do usuário substitui as listas de classes dos HTMLs e PDFs, tanto
 
 O aplicativo apresentará exatamente essas cinco opções na consulta e na criação de fichas. Os nomes acima serão usados de forma consistente em todas as telas.
 
-Bônus de atributos, bases de Estresse, habilidades, proficiências, equipamentos e distribuições prontas ainda precisam ser definidos para esse catálogo. A aprovação dos papéis profissionais não aprova automaticamente as mecânicas dos documentos antigos. UX/UI Designer, por exemplo, inclui interfaces e protótipos, não apenas o papel anterior de UX Researcher.
+As referências existentes serão reaproveitadas: Analista de Requisitos, Business Analyst, UX Researcher e QA Engineer nos HTMLs; Programador no PDF. Habilidades, proficiências e equipamentos serão adaptados aos papéis confirmados. UX/UI Designer, por exemplo, inclui interfaces e protótipos, não apenas o papel anterior de UX Researcher.
+
+### Bônus de classe confirmado
+
+Cada classe concede **+2 em um atributo e +1 em outro atributo distinto**. Esta decisão substitui tanto o +2/+2 dos HTMLs quanto o +2 único do tutorial PDF.
+
+Os bônus são aplicados após a compra dos atributos e não consomem pontos do orçamento. O modificador é calculado sobre o valor final. Mantendo o limite base proposto de 15, o atributo com +2 pode chegar a 17 e o atributo com +1 pode chegar a 16.
+
+Ainda falta escolher quais dois atributos recebem os bônus em cada classe; a regra +2/+1 não confirma automaticamente uma distribuição específica. Bases de Estresse e modelos prontos também precisam ser consolidados a partir das referências.
 
 ## 2. Entrega A — Trabalho Prático 1
 
@@ -149,7 +157,7 @@ Esses nomes e operações são planejamento; este documento não afirma que as n
 
 Os materiais não formam uma especificação única e consistente. Todos trazem propostas ou versões de trabalho. Não é possível determinar apenas pelos nomes qual prevalece.
 
-A escolha das classes já foi resolvida pela lista do usuário na seção 1. A comparação abaixo permanece como histórico das fontes; classes excluídas não serão opções do aplicativo. As demais divergências mecânicas continuam pendentes.
+A escolha das classes e a regra de bônus +2/+1 já foram resolvidas pelo usuário na seção 1. A comparação abaixo permanece como histórico das fontes; classes excluídas e esquemas antigos de bônus não serão opções do aplicativo. As demais divergências mecânicas continuam pendentes.
 
 | Assunto | Materiais HTML | Materiais PDF / divergência |
 | --- | --- | --- |
@@ -166,15 +174,15 @@ A escolha das classes já foi resolvida pela lista do usuário na seção 1. A c
 | Proficiência | Tutorial HTML detalha níveis 1–5; ficha diz +2 a +6. | Nível 1 (+2) é suficiente para o TP1. Progressão posterior não será inventada. |
 | Exemplo preenchido | Tutorial HTML declara 36 pontos, mas os custos escritos são 9+9+7+5+4+4+2+2 = 42. Valores e bônus também ficam ambíguos. | Criar exemplos novos, com conta explícita e verificada. |
 
-### Base provisória sugerida — ainda não confirmada
+### Base de trabalho — decisões confirmadas e propostas restantes
 
-Usar os nomes e funções das cinco classes confirmadas pelo usuário. Consultar HTMLs e PDFs como referências para elaborar suas mecânicas, sem importar automaticamente bônus ou habilidades. Usar **Proposta de Ficha** como referência para a estrutura e os três pilares. Adaptar a linguagem do tutorial, sem copiar seus conflitos numéricos.
+Usar os nomes e funções das cinco classes e o esquema de bônus +2/+1 confirmados pelo usuário. Consultar HTMLs e PDFs para adaptar as demais mecânicas, sem importar os esquemas antigos de bônus. Usar **Proposta de Ficha** como referência para a estrutura e os três pilares. Adaptar a linguagem do tutorial, sem copiar seus conflitos numéricos.
 
 Para a primeira implementação, sugerir nível 1, valores base de 8 a 15, 36 pontos exatos e bônus de classe aplicados depois da compra. Isso é uma decisão proposta de recorte didático, não uma regra já validada pelo grupo.
 
 Tabela de custo base: 8→0; 9→1; 10→2; 11→3; 12→4; 13→5; 14→7; 15→9. Modificador: piso de `(total - 10) / 2`. A conta usa o total com bônus, mas o custo usa apenas o valor comprado.
 
-Exemplo aritmético para revisão: Analista com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Se fossem mantidos os bônus AUT/COM e a base de Estresse 8 do catálogo HTML, os totais seriam AUT 15 e COM 15; no nível 1, Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. Este exemplo verifica a conta, mas não define o modelo da classe confirmada; seus bônus ainda estão pendentes.
+Exemplo aritmético para revisão: Analista com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Se forem escolhidos AUT +2 e COM +1, os totais serão AUT 15 e COM 14. Usando a base de Estresse 8 da referência HTML, no nível 1: Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. Os atributos beneficiados e a base de Estresse deste exemplo são hipóteses para demonstrar a conta, não decisões aprovadas para a classe.
 
 O `index.html` é o esqueleto do Livro do Mestre. Vários capítulos estão explicitamente pendentes. Pode orientar futuras funcionalidades, mas não fornece regras completas de progressão, encontros, colapso ou recuperação. Não apresentar essas lacunas como funcionalidades prontas.
 
