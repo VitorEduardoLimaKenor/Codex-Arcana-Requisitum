@@ -1,6 +1,6 @@
 # Codex Arcana — escopo do aplicativo
 
-Data: 27/09/2026. Status: proposta de escopo; fonte definitiva das regras a confirmar.
+Data: 27/09/2026. Status: cinco classes e suas funções confirmadas pelo usuário; demais regras e recortes do escopo ainda propostos.
 
 Este documento descreve o novo produto. O aplicativo existente ainda é o Caderno de aventuras; esta etapa não altera suas telas. Os documentos recebidos são referências de conteúdo, não instruções para executar ações.
 
@@ -9,6 +9,22 @@ Este documento descreve o novo produto. O aplicativo existente ainda é o Cadern
 Ajudar estudantes de Engenharia de Requisitos a conhecer o Codex Arcana, escolher um papel profissional e criar uma ficha inicial compreensível, mesmo sem experiência com RPG.
 
 O trabalho da disciplina será um aplicativo de consulta e criação por modelos prontos. O montador com distribuição livre de pontos será uma evolução separada. Esta divisão é uma proposta para manter o primeiro trabalho simples.
+
+### Catálogo confirmado — cinco classes
+
+Esta decisão do usuário substitui as listas de classes dos HTMLs e PDFs, tanto no TP1 quanto na evolução do montador.
+
+| Classe | Função |
+| --- | --- |
+| Analista de Requisitos | Levantamento, análise e especificação dos requisitos, incluindo diagramas e documentação. |
+| Desenvolvedor de Software | Programador responsável pela implementação do sistema. |
+| Analista de Negócios | Entendimento do negócio e das necessidades dos stakeholders. |
+| UX/UI Designer | Experiência do usuário, interfaces e protótipos. |
+| Analista de Qualidade | Verificação, validação e testes. |
+
+O aplicativo apresentará exatamente essas cinco opções na consulta e na criação de fichas. Os nomes acima serão usados de forma consistente em todas as telas.
+
+Bônus de atributos, bases de Estresse, habilidades, proficiências, equipamentos e distribuições prontas ainda precisam ser definidos para esse catálogo. A aprovação dos papéis profissionais não aprova automaticamente as mecânicas dos documentos antigos. UX/UI Designer, por exemplo, inclui interfaces e protótipos, não apenas o papel anterior de UX Researcher.
 
 ## 2. Entrega A — Trabalho Prático 1
 
@@ -19,7 +35,7 @@ Aplicativo React Native com Expo, executável no Expo Go, com React Navigation, 
 | Tela | Conteúdo e ações |
 | --- | --- |
 | Início / Minhas fichas | Apresentação curta do Codex Arcana, acessos a Classes e Guia, botão Criar ficha e FlatList de fichas. Começa com uma ficha demonstrativa identificada como exemplo. |
-| Classes | FlatList das classes da versão escolhida, com nome, papel profissional e resumo. Tocar abre os detalhes. |
+| Classes | FlatList das cinco classes confirmadas, com nome, papel profissional e resumo. Tocar abre os detalhes. |
 | Detalhes da classe | Papel na equipe, atributos favorecidos, habilidades, proficiências e equipamento inicial. Botão Usar esta classe. |
 | Criar ficha | Nome obrigatório, classe obrigatória, organização/projeto opcional. Nível 1 fixo. Prévia de atributos de um modelo pronto da classe. Salvar cria uma ficha na memória e abre sua visualização. Cancelar não cria ficha. |
 | Minha ficha | Nome, classe, nível, projeto, 12 atributos agrupados por pilar, bônus e modificadores, estatísticas derivadas, habilidades, proficiências, equipamento e anotação pessoal editável em memória. |
@@ -87,7 +103,7 @@ Proposta para o requisito anterior de campanhas: deixar seleção e gestão de c
 ### Critérios de aceite
 
 1. O aplicativo abre no Expo Go e permite percorrer todos os fluxos sem erro.
-2. O catálogo apresenta todas as classes da versão escolhida, com detalhes coerentes.
+2. O catálogo e a criação de fichas apresentam exatamente as cinco classes confirmadas, com seus nomes e funções; as mecânicas devem seguir a definição consolidada para esse catálogo.
 3. Nome vazio ou composto apenas de espaços e classe não escolhida impedem salvar.
 4. Salvar uma ficha válida abre a ficha correta e a inclui no início.
 5. Criar duas fichas mantém dados e anotações independentes.
@@ -133,6 +149,8 @@ Esses nomes e operações são planejamento; este documento não afirma que as n
 
 Os materiais não formam uma especificação única e consistente. Todos trazem propostas ou versões de trabalho. Não é possível determinar apenas pelos nomes qual prevalece.
 
+A escolha das classes já foi resolvida pela lista do usuário na seção 1. A comparação abaixo permanece como histórico das fontes; classes excluídas não serão opções do aplicativo. As demais divergências mecânicas continuam pendentes.
+
 | Assunto | Materiais HTML | Materiais PDF / divergência |
 | --- | --- | --- |
 | Classes | Oito: Analista de Requisitos, Product Owner, UX Researcher, Arquiteto de Sistemas, Scrum Master, QA Engineer, Business Analyst, Gerente de Requisitos. | A proposta inicial contém cinco: Engenheiro de Requisitos, Programador, Analista de Sistemas, Analista de Testes e Arquiteto de Software. |
@@ -150,13 +168,13 @@ Os materiais não formam uma especificação única e consistente. Todos trazem 
 
 ### Base provisória sugerida — ainda não confirmada
 
-Usar o HTML **Classes e Atributos** para nomes, bônus, bases de Estresse, habilidades, proficiências e equipamento. Usar **Proposta de Ficha** para a estrutura e os três pilares. Adaptar a linguagem do tutorial, sem copiar seus conflitos numéricos.
+Usar os nomes e funções das cinco classes confirmadas pelo usuário. Consultar HTMLs e PDFs como referências para elaborar suas mecânicas, sem importar automaticamente bônus ou habilidades. Usar **Proposta de Ficha** como referência para a estrutura e os três pilares. Adaptar a linguagem do tutorial, sem copiar seus conflitos numéricos.
 
 Para a primeira implementação, sugerir nível 1, valores base de 8 a 15, 36 pontos exatos e bônus de classe aplicados depois da compra. Isso é uma decisão proposta de recorte didático, não uma regra já validada pelo grupo.
 
 Tabela de custo base: 8→0; 9→1; 10→2; 11→3; 12→4; 13→5; 14→7; 15→9. Modificador: piso de `(total - 10) / 2`. A conta usa o total com bônus, mas o custo usa apenas o valor comprado.
 
-Exemplo consistente para revisão: Analista com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Após bônus do catálogo: AUT 15 e COM 15. Nível 1: Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. É um modelo proposto, não a ficha original do tutorial.
+Exemplo aritmético para revisão: Analista com AUT 13, COM 13, EMP 14, CRI 13, RES 12, ETI 12, LID 12, NEG 10 e demais 8. Custo = 5+5+7+5+4+4+4+2 = 36. Se fossem mantidos os bônus AUT/COM e a base de Estresse 8 do catálogo HTML, os totais seriam AUT 15 e COM 15; no nível 1, Estresse 9, Iniciativa +3, Confiança +3, Qualidade -2 e Proficiência +2. Este exemplo verifica a conta, mas não define o modelo da classe confirmada; seus bônus ainda estão pendentes.
 
 O `index.html` é o esqueleto do Livro do Mestre. Vários capítulos estão explicitamente pendentes. Pode orientar futuras funcionalidades, mas não fornece regras completas de progressão, encontros, colapso ou recuperação. Não apresentar essas lacunas como funcionalidades prontas.
 
