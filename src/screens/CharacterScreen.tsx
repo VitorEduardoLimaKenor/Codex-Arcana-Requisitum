@@ -21,17 +21,22 @@ import {
 } from "../data/codex";
 import { ClassContents } from "../components/ClassContents";
 import { ClassBadge, classLook } from "../components/ClassCard";
+import { DiceRoller } from "../components/DiceRoller";
+import { XpMarker } from "../components/XpMarker";
 import { Button } from "../components/Button";
 import { colors, styles } from "../styles";
 type Props = NativeStackScreenProps<Routes, "Character"> & {
   character: Character | undefined;
+  onXpChange: (xp: number) => void;
   onNoteChange: (note: string) => void;
 };
 export function CharacterScreen({
   character,
   onNoteChange,
+  onXpChange,
   navigation,
 }: Props) {
+  const [roll, setRoll] = useState<{ name: string; modifier: number } | null | undefined>(undefined);
   const [showMath, setShowMath] = useState(false);
   if (!character)
     return (
@@ -81,10 +86,9 @@ export function CharacterScreen({
                 <Text style={[styles.subtitle, { textAlign: "center" }]}>
                   {chosen.name}
                 </Text>
-                {!!character.project && (
-                  <Text style={styles.label}>{character.project}</Text>
-                )}
               </View>
+              <XpMarker xp={character.xp} onChange={onXpChange} />
+              <Button title="Rolar dados avulsos" onPress={() => setRoll(null)} />
               <View
                 style={[
                   styles.card,
@@ -140,7 +144,9 @@ export function CharacterScreen({
             </Text>
           )}
           renderItem={({ item }) => (
-            <View style={local.attribute}>
+            <Pressable accessibilityRole="button" accessibilityLabel={`Rolar ${item.name}`}
+              onPress={() => setRoll({ name: item.name, modifier: item.modifier })}
+              style={({ pressed }) => [local.attribute, pressed && styles.pressed]}>
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
               >
@@ -149,7 +155,7 @@ export function CharacterScreen({
                   <Text style={styles.body}>{item.name}</Text>
                 </View>
                 <Text style={styles.section}>{item.total}</Text>
-                <Text style={local.modifier}>{signed(item.modifier)}</Text>
+                <Text style={local.modifier}>{signed(item.modifier)} · Rolar</Text>
               </View>
               {showMath && (
                 <Text style={styles.subtitle}>
@@ -157,12 +163,12 @@ export function CharacterScreen({
                   {item.cost}
                 </Text>
               )}
-            </View>
+            </Pressable>
           )}
           ListFooterComponent={
             <View style={{ gap: 16, marginTop: 16 }}>
               <Text style={styles.label}>
-                Número maior: atributo · selo: modificador do teste.
+                Toque em um atributo para rolar d20 + modificador.
               </Text>
               <ClassContents characterClass={chosen} />
               <Button
@@ -194,6 +200,7 @@ export function CharacterScreen({
           }
         />
       </SafeAreaView>
+      {roll !== undefined && <DiceRoller characterName={character.name} attribute={roll} proficiency={stats.proficiency} onClose={() => setRoll(undefined)} />}
     </KeyboardAvoidingView>
   );
 }

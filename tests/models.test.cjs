@@ -36,3 +36,13 @@ test('ler modelos repetidamente não acumula bônus nem altera os dados', () => 
   for (const item of classes) { getModel(item); getStats(item); getModel(item); }
   assert.equal(JSON.stringify(classes), before);
 });
+
+const { rollDie, diceSides } = require('../src/data/dice.ts');
+test('dados respeitam extremos e somam modificador e proficiência', () => {
+  for (const sides of diceSides) {
+    assert.equal(rollDie(sides, 0, 0, () => 0).face, 1);
+    assert.equal(rollDie(sides, 0, 0, () => 0.999999).face, sides);
+  }
+  assert.deepEqual(rollDie(20, -1, 2, () => 0), { face: 1, modifier: -1, proficiency: 2, total: 2 });
+  assert.equal(rollDie(20, 3, 0, () => 0.5).total, 14);
+});

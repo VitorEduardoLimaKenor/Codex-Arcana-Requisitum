@@ -64,11 +64,11 @@ export default function App() {
             {(props) => (
               <CreateCharacterScreen
                 {...props}
-                onCreate={(name, classId, project) => {
+                onCreate={(name, classId) => {
                   const id = `character-${nextId.current++}`;
                   setCharacters((current) => [
                     ...current,
-                    { id, name, classId, project, note: "" },
+                    { id, name, classId, xp: 0, note: "" },
                   ]);
                   return id;
                 }}
@@ -83,6 +83,11 @@ export default function App() {
                 character={characters.find(
                   (item) => item.id === props.route.params.characterId,
                 )}
+                onXpChange={(xp) =>
+                  setCharacters((current) => current.map((item) =>
+                    item.id === props.route.params.characterId ? { ...item, xp } : item,
+                  ))
+                }
                 onNoteChange={(note) =>
                   setCharacters((current) =>
                     current.map((item) =>

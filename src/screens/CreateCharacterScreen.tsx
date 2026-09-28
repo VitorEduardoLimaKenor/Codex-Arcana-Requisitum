@@ -25,12 +25,11 @@ import { ClassBadge, ClassCard, classLook } from "../components/ClassCard";
 import { Disclosure } from "../components/Disclosure";
 import { colors, styles } from "../styles";
 type Props = NativeStackScreenProps<Routes, "CreateCharacter"> & {
-  onCreate: (name: string, classId: ClassId, project: string) => string;
+  onCreate: (name: string, classId: ClassId) => string;
 };
 export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [project, setProject] = useState("");
   const [classId, setClassId] = useState<ClassId | undefined>(
     route.params?.classId,
   );
@@ -52,7 +51,7 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
       setStep(step + 1);
       return;
     }
-    const characterId = onCreate(name.trim(), classId, project.trim());
+    const characterId = onCreate(name.trim(), classId);
     navigation.replace("Character", { characterId });
   }
   return (
@@ -149,16 +148,6 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
                 placeholderTextColor={colors.muted}
                 returnKeyType="next"
               />
-              <Text style={styles.label}>Projeto (opcional)</Text>
-              <TextInput
-                accessibilityLabel="Organização ou projeto"
-                style={styles.input}
-                value={project}
-                onChangeText={setProject}
-                maxLength={80}
-                placeholder="Ex.: Portal da biblioteca"
-                placeholderTextColor={colors.muted}
-              />
               {!!error && (
                 <Text accessibilityRole="alert" style={styles.error}>
                   {error}
@@ -168,9 +157,6 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
           ) : (
             chosen && (
               <>
-                {!!project.trim() && (
-                  <Text style={styles.subtitle}>Projeto: {project.trim()}</Text>
-                )}
                 <Text style={styles.section}>Seus pontos fortes</Text>
                 <View style={{ gap: 10 }}>
                   {[chosen.primary, chosen.secondary].map((id, index) => (

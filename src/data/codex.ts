@@ -418,7 +418,7 @@ export type Character = {
   id: string;
   name: string;
   classId: ClassId;
-  project: string;
+  xp: number;
   note: string;
   example?: boolean;
 };
@@ -427,7 +427,7 @@ export const initialCharacters: Character[] = [
     id: "example",
     name: "Ari — ficha de exemplo",
     classId: "requirements",
-    project: "Portal da biblioteca",
+    xp: 0,
     note: "Confirmar com a bibliotecária como funciona a renovação dos empréstimos.",
     example: true,
   },

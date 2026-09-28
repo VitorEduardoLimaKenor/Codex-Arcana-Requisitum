@@ -220,3 +220,7 @@ O visual medieval anterior foi substituído pela referência escura mais recente
 ### Refinamento visual e didático
 
 A criação do TP1 agora divide o mesmo formulário em três etapas internas: classe, identidade e revisão. Mantém os modelos prontos e as seis rotas existentes. Insígnias coloridas identificam as classes; detalhes, cálculos e tópicos do guia ficam recolhidos até o toque. Este refinamento não implementa a distribuição livre de pontos da entrega B.
+
+### Ampliação solicitada: dados e XP
+
+Por solicitação do usuário, a ficha oferece rolagem de d20 por atributo, com modificador e proficiência opcional, e dados avulsos d20/d8/d10. O XP é um total manual por personagem, sem progressão automática. O campo projeto/aventura foi removido. Tudo permanece em memória, sem novas rotas, dependências ou serviços externos.

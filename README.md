@@ -19,7 +19,7 @@ Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. P
 1. **Início / Minhas fichas:** apresentação, acessos ao catálogo, guia e criação, além da lista de fichas.
 2. **Classes:** catálogo das cinco classes confirmadas.
 3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
-4. **Criar ficha:** três etapas curtas — escolher classe, informar nome/projeto e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
+4. **Criar ficha:** três etapas curtas — escolher classe, informar nome e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
 5. **Minha ficha:** atributos por pilar, estatísticas derivadas e anotação individual.
 6. **Guia do sistema:** conceitos para iniciantes, regras de leitura e explicação dos modelos.
 
@@ -46,7 +46,7 @@ Os nomes e bônus foram definidos pelo usuário. Os modelos prontos são distrib
 - Desenvolvedor parte de Programador do PDF. Proficiências e equipamentos foram adaptados para o exemplo didático.
 - Base de Estresse **8** para as cinco classes. Quatro vêm das referências HTML correspondentes; a do Desenvolvedor é uma escolha local do protótipo, pois o PDF não define esse número.
 - Estatísticas no nível 1: Estresse = base + mod. RES; Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA; Proficiência = +2.
-- Habilidades são resumos para consulta. Não há execução automática de ações, recuperação, colapso, rolagens ou progressão.
+- Habilidades são resumos para consulta. Não há execução automática de habilidades, recuperação, colapso ou progressão.
 
 Não há distribuição manual, campanhas ou funcionalidades do montador avançado nesta entrega. O montador permanece uma evolução separada.
 
@@ -90,3 +90,9 @@ Validação realizada no navegador: campos obrigatórios, criação direta e a p
 Implementação em `feat/codex-arcana-tp1`. O protótipo anterior permanece em `feat/caderno-rpg`. A branch do montador e a tag de entrega ainda não foram criadas.
 
 Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).
+
+## Rolagens e XP
+
+Na ficha, toque em um atributo para rolar d20 com seu modificador. Proficiência +2 é opcional e deve ser marcada quando o teste permitir. Dados avulsos incluem d20, d8 e d10, citados nos materiais. A conta mostra o dado e cada bônus; não decide sucesso ou falha automaticamente.
+
+O marcador de XP permite registrar um total inteiro não negativo por personagem, sem alterar o nível. Rolagens e XP funcionam localmente; XP é perdido ao reiniciar, assim como as fichas. O campo projeto/aventura foi removido.
