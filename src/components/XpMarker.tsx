@@ -17,7 +17,7 @@ export function XpMarker({ xp, onChange }: { xp: number; onChange: (xp: number) 
   }
   return (
     <Disclosure title={`${xp} XP · Experiência`}>
-      <Text style={styles.subtitle}>Registre o XP recebido na mesa. O nível não muda automaticamente.</Text>
+      <Text style={styles.subtitle}>Registro opcional da mesa. No sistema, o Mestre avança o nível por marcos, não por XP.</Text>
       <View style={{ gap: 10 }}>
         <TextInput accessibilityLabel="Total de XP" value={draft}
           onChangeText={(value) => { setDraft(value); setMessage(""); }}

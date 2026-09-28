@@ -21,7 +21,7 @@ Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. P
 3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
 4. **Criar ficha:** três etapas curtas — escolher classe, informar nome e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
 5. **Minha ficha:** atributos por pilar, estatísticas derivadas e anotação individual.
-6. **Guia do sistema:** conceitos para iniciantes, regras de leitura e explicação dos modelos.
+6. **Guia do sistema:** criação simplificada, atributos, primeira sessão, testes/CD, proficiência, graus de resultado, vantagem/desvantagem, Estresse e evolução por marcos.
 
 O aplicativo começa com uma ficha demonstrativa. As novas fichas e anotações ficam no estado do App. São perdidas ao recarregar/reiniciar. Não há API, banco, login, persistência ou fonte remota.
 
@@ -95,4 +95,8 @@ Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).
 
 Na ficha, toque em um atributo para rolar d20 com seu modificador. Proficiência +2 é opcional e deve ser marcada quando o teste permitir. Dados avulsos incluem d20, d8 e d10, citados nos materiais. A conta mostra o dado e cada bônus; não decide sucesso ou falha automaticamente.
 
-O marcador de XP permite registrar um total inteiro não negativo por personagem, sem alterar o nível. Rolagens e XP funcionam localmente; XP é perdido ao reiniciar, assim como as fichas. O campo projeto/aventura foi removido.
+O Livro do Mestre v1.0 usa progressão por marcos, não por pontos. O marcador de XP, solicitado para o app, é um registro opcional de total inteiro não negativo por personagem, sem alterar o nível. Rolagens e XP funcionam localmente; XP é perdido ao reiniciar, assim como as fichas. O campo projeto/aventura foi removido.
+
+## Revisão da primeira entrega
+
+Consulte [a revisão do TP1](docs/REVISAO-TP1.md) para a matriz de requisitos, fontes verificadas, adaptações e roteiro final no Expo Go. Estresse representa o máximo inicial; perdas e recuperação podem ser anotadas no caderno.

@@ -425,7 +425,7 @@ export type Character = {
 export const initialCharacters: Character[] = [
   {
     id: "example",
-    name: "Ari — ficha de exemplo",
+    name: "Davi / ficha de exemplo",
     classId: "requirements",
     xp: 0,
     note: "Confirmar com a bibliotecária como funciona a renovação dos empréstimos.",

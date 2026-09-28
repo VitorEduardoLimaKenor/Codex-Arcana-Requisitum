@@ -97,7 +97,7 @@ export function CharacterScreen({
               >
                 <Text style={local.number}>{stats.stress}</Text>
                 <View style={{ flex: 1, gap: 5 }}>
-                  <Text style={styles.body}>Pontos de Estresse</Text>
+                  <Text style={styles.body}>Estresse máximo</Text>
                   <Text style={styles.label}>
                     Sua resistência à pressão do projeto.
                   </Text>

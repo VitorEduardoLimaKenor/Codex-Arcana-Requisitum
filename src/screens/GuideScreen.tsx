@@ -22,6 +22,46 @@ const sections = [
         description:
           "Escolha sua classe, dê um nome ao personagem e confira o resumo. Os 36 pontos já estão distribuídos. Toque em Salvar ficha para começar.",
       },
+      {
+        name: "O que esta versão simplifica?",
+        description:
+          "Aqui você escolhe entre cinco classes e recebe um modelo pronto de nível 1, com bônus +2 e +1. A distribuição livre de pontos e a evolução ficam para outra versão. Habilidades e equipamentos são resumos adaptados; confirme seus efeitos com o Mestre.",
+      },
+    ],
+  },
+  {
+    title: "Sua primeira sessão",
+    data: [
+      {
+        name: "O que eu faço na mesa?",
+        description:
+          "O Mestre descreve um problema de projeto. Você diz o que seu personagem tenta fazer: entrevistar, negociar, desenhar um diagrama ou revisar um requisito. A equipe coopera e registra as descobertas. O Mestre pede um teste quando há risco e incerteza.",
+      },
+      {
+        name: "Como rolar um teste?",
+        description:
+          "O Mestre indica o atributo e a Classe de Dificuldade (CD). Na ficha, toque no atributo: o app rola d20 e soma o modificador, não o valor total do atributo. Se a técnica estiver nas suas proficiências, marque o bônus +2. Exemplo: dado 11 + COM 3 + proficiência 2 = 16; contra CD 15, sucesso.",
+      },
+      {
+        name: "Como ler o resultado?",
+        description:
+          "Total igual ou maior que a CD é sucesso. Até 4 abaixo pode ser sucesso parcial com custo; de 5 a 9 abaixo, falha. Dez ou mais acima é triunfo; dez ou mais abaixo, revés. Um 20 natural é triunfo e um 1 natural é revés. Natural significa o valor do dado, antes dos bônus. O Mestre interpreta a consequência; o app mostra apenas a conta.",
+      },
+      {
+        name: "Vantagem e desvantagem",
+        description:
+          "Quando o Mestre indicar, role dois d20 avulsos e anote os resultados. Com vantagem, use o maior; com desvantagem, o menor. Depois some o modificador e a proficiência aplicável uma única vez. Se houver ambas, elas se cancelam: role apenas um d20. O app não escolhe entre os dois automaticamente.",
+      },
+      {
+        name: "Estresse é resistência à pressão",
+        description:
+          "Os PE são uma reserva do personagem: ele perde pontos quando o projeto o desgasta e pode recuperá-los conforme o Mestre orientar. A zero, entra em colapso. A ficha mostra o máximo inicial, não um contador atual; registre perdas e recuperação no caderno. É um recurso do personagem, não uma medida do aluno.",
+      },
+      {
+        name: "XP e evolução",
+        description:
+          "O Livro do Mestre usa marcos: a equipe sobe de nível ao concluir etapas importantes, por decisão do Mestre. O marcador de XP é um registro opcional deste app, sem tabela de conversão em níveis. Nesta entrega, as fichas permanecem no nível 1.",
+      },
     ],
   },
   ...["Intrapessoal", "Interpessoal", "Técnico"].map((title) => ({
