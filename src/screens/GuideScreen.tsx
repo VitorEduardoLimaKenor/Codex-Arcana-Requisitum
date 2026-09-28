@@ -25,7 +25,7 @@ const sections = [
       {
         name: "O que esta versão simplifica?",
         description:
-          "Aqui você escolhe entre cinco classes e recebe um modelo pronto de nível 1, com bônus +2 e +1. A distribuição livre de pontos e a evolução ficam para outra versão. Habilidades e equipamentos são resumos adaptados; confirme seus efeitos com o Mestre.",
+          "Aqui você escolhe entre cinco classes e recebe um modelo pronto de nível 1, com bônus +2 e +1. Você pode avançar até o nível 2 por um marco autorizado pelo Mestre. Distribuição livre, arquétipos e melhorias ficam para outra versão. Habilidades e equipamentos são resumos adaptados; confirme seus efeitos com o Mestre.",
       },
     ],
   },
@@ -55,12 +55,12 @@ const sections = [
       {
         name: "Estresse é resistência à pressão",
         description:
-          "Os PE são uma reserva do personagem: ele perde pontos quando o projeto o desgasta e pode recuperá-los conforme o Mestre orientar. A zero, entra em colapso. A ficha mostra o máximo inicial, não um contador atual; registre perdas e recuperação no caderno. É um recurso do personagem, não uma medida do aluno.",
+          "Os PE são uma reserva do personagem: ele perde pontos quando o projeto o desgasta e pode recuperá-los conforme o Mestre orientar. A zero, entra em colapso. A ficha mostra o máximo para seu nível, não um contador atual; registre perdas e recuperação no caderno. É um recurso do personagem, não uma medida do aluno.",
       },
       {
-        name: "XP e evolução",
+        name: "Evolução por marcos",
         description:
-          "O Livro do Mestre usa marcos: a equipe sobe de nível ao concluir etapas importantes, por decisão do Mestre. O marcador de XP é um registro opcional deste app, sem tabela de conversão em níveis. Nesta entrega, as fichas permanecem no nível 1.",
+          "A equipe sobe de nível ao concluir etapas importantes, por decisão do Mestre. Na ficha, abra Evolução por marcos, descreva a conquista e confirme a autorização. O app avança do nível 1 para o 2, recalcula o Estresse máximo e mantém proficiência +2. Combine com o Mestre o refinamento de uma habilidade inicial e anote no caderno.",
       },
     ],
   },
@@ -94,12 +94,12 @@ const sections = [
       {
         name: "Estatísticas derivadas",
         description:
-          "No nível 1: Estresse = base da classe + mod. RES; Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA. O app exibe esses valores para consulta.",
+          "Estresse máximo = base da classe + (mod. RES × nível); Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA. O app exibe esses valores para consulta.",
       },
       {
         name: "Proficiência e habilidades",
         description:
-          "Proficiência representa treinamento: neste nível o bônus é +2 nos testes em que você é proficiente. Habilidades descrevem recursos da classe; sua aplicação na mesa é orientada pelo professor.",
+          "Proficiência representa treinamento: nos níveis 1 e 2 o bônus é +2 nos testes em que você é proficiente. Habilidades descrevem recursos da classe; sua aplicação na mesa é orientada pelo professor.",
       },
       {
         name: "Onde ficam minhas fichas?",

@@ -230,3 +230,7 @@ Por solicitação do usuário, a ficha oferece rolagem de d20 por atributo, com 
 A fonte adicional `Livro do Mestre/Livro do Mestre v1.0.0.html` contém regras desenvolvidas que não constavam no antigo esqueleto. O guia agora resume testes, CD, graus de resultado, vantagem/desvantagem, PE e progressão por marcos. XP permanece um marcador opcional do aplicativo, não uma regra oficial de progressão. As decisões do usuário sobre cinco classes e bônus +2/+1 continuam prevalecendo. Veja `REVISAO-TP1.md` para a revisão consolidada.
 
 Na revisão, a branch ativa encontrada foi `main`, que contém a implementação do TP1. As referências anteriores a `feat/codex-arcana-tp1` registram o histórico do desenvolvimento.
+
+### Escopo vigente: marcos até o nível 2
+
+O usuário substituiu XP por progressão por marcos e confirmou limitar o TP1 ao nível 2. Cada personagem começa no nível 1. Um marco preenchido e a confirmação de autorização do Mestre permitem um único avanço para 2. O Estresse máximo usa base + (mod. RES × nível); proficiência continua +2. O marco é registrado; refinamento de habilidade é anotado no caderno conforme o Mestre. Não há progressão adicional, arquétipos ou melhorias automáticas. Esta decisão substitui as referências históricas a XP e nível fixo 1 acima.

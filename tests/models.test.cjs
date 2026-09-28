@@ -46,3 +46,21 @@ test('dados respeitam extremos e somam modificador e proficiência', () => {
   assert.deepEqual(rollDie(20, -1, 2, () => 0), { face: 1, modifier: -1, proficiency: 2, total: 2 });
   assert.equal(rollDie(20, 3, 0, () => 0.5).total, 14);
 });
+
+const { advanceAtMilestone, initialCharacters } = require('../src/data/codex.ts');
+test('marco válido avança uma vez e mantém os atributos de criação', () => {
+  const original = initialCharacters[0];
+  assert.equal(advanceAtMilestone(original, '   '), original);
+  const advanced = advanceAtMilestone(original, '  Baseline aprovada  ');
+  assert.equal(advanced.level, 2);
+  assert.equal(advanced.milestone, 'Baseline aprovada');
+  assert.equal(original.level, 1);
+  assert.equal(advanceAtMilestone(advanced, 'Outro marco'), advanced);
+  for (const characterClass of classes) {
+    const first = getStats(characterClass, 1);
+    const second = getStats(characterClass, 2);
+    const resilience = getModel(characterClass).find(item => item.id === 'RES').modifier;
+    assert.deepEqual(second, { ...first, stress: first.stress + resilience });
+    assert.equal(second.proficiency, 2);
+  }
+});

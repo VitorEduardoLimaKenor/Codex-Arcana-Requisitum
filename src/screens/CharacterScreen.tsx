@@ -22,18 +22,18 @@ import {
 import { ClassContents } from "../components/ClassContents";
 import { ClassBadge, classLook } from "../components/ClassCard";
 import { DiceRoller } from "../components/DiceRoller";
-import { XpMarker } from "../components/XpMarker";
+import { MilestoneProgress } from "../components/MilestoneProgress";
 import { Button } from "../components/Button";
 import { colors, styles } from "../styles";
 type Props = NativeStackScreenProps<Routes, "Character"> & {
   character: Character | undefined;
-  onXpChange: (xp: number) => void;
+  onAdvance: (milestone: string) => void;
   onNoteChange: (note: string) => void;
 };
 export function CharacterScreen({
   character,
   onNoteChange,
-  onXpChange,
+  onAdvance,
   navigation,
 }: Props) {
   const [roll, setRoll] = useState<{ name: string; modifier: number } | null | undefined>(undefined);
@@ -47,7 +47,7 @@ export function CharacterScreen({
     );
   const chosen = getClass(character.classId);
   const look = classLook[chosen.id];
-  const stats = getStats(chosen);
+  const stats = getStats(chosen, character.level);
   const model = getModel(chosen);
   const sections = ["Intrapessoal", "Interpessoal", "Técnico"].map((title) => ({
     title,
@@ -77,8 +77,7 @@ export function CharacterScreen({
               >
                 <ClassBadge classId={chosen.id} large />
                 <Text style={[styles.eyebrow, { color: look.color }]}>
-                  {character.example ? "EXEMPLO" : "PERSONAGEM PRONTO"} · NÍVEL
-                  1
+                  {character.example ? "EXEMPLO" : "PERSONAGEM PRONTO"} · NÍVEL {character.level}
                 </Text>
                 <Text style={[styles.title, styles.centeredText]}>
                   {character.name}
@@ -87,7 +86,7 @@ export function CharacterScreen({
                   {chosen.name}
                 </Text>
               </View>
-              <XpMarker xp={character.xp} onChange={onXpChange} />
+              <MilestoneProgress level={character.level} milestone={character.milestone} onAdvance={onAdvance} />
               <Button title="Rolar dados avulsos" onPress={() => setRoll(null)} />
               <View
                 style={[

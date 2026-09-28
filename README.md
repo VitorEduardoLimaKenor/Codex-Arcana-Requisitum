@@ -20,7 +20,7 @@ Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. P
 2. **Classes:** catálogo das cinco classes confirmadas.
 3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
 4. **Criar ficha:** três etapas curtas — escolher classe, informar nome e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
-5. **Minha ficha:** atributos por pilar, estatísticas derivadas e anotação individual.
+5. **Minha ficha:** atributos por pilar, estatísticas derivadas, evolução por marco até o nível 2 e anotação individual.
 6. **Guia do sistema:** criação simplificada, atributos, primeira sessão, testes/CD, proficiência, graus de resultado, vantagem/desvantagem, Estresse e evolução por marcos.
 
 O aplicativo começa com uma ficha demonstrativa. As novas fichas e anotações ficam no estado do App. São perdidas ao recarregar/reiniciar. Não há API, banco, login, persistência ou fonte remota.
@@ -45,8 +45,8 @@ Os nomes e bônus foram definidos pelo usuário. Os modelos prontos são distrib
 - UX/UI parte de UX Researcher, incluindo prototipagem de interfaces e avaliação de usabilidade para atender ao papel escolhido.
 - Desenvolvedor parte de Programador do PDF. Proficiências e equipamentos foram adaptados para o exemplo didático.
 - Base de Estresse **8** para as cinco classes. Quatro vêm das referências HTML correspondentes; a do Desenvolvedor é uma escolha local do protótipo, pois o PDF não define esse número.
-- Estatísticas no nível 1: Estresse = base + mod. RES; Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA; Proficiência = +2.
-- Habilidades são resumos para consulta. Não há execução automática de habilidades, recuperação, colapso ou progressão.
+- Estatísticas nos níveis 1 e 2: Estresse máximo = base + (mod. RES × nível); Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA; Proficiência = +2.
+- Habilidades são resumos para consulta. Não há execução automática de habilidades, recuperação ou colapso. A progressão vai somente até o nível 2, por decisão do Mestre.
 
 Não há distribuição manual, campanhas ou funcionalidades do montador avançado nesta entrega. O montador permanece uma evolução separada.
 
@@ -91,12 +91,14 @@ A implementação do TP1 está atualmente em `main` (originalmente desenvolvida 
 
 Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).
 
-## Rolagens e XP
+## Rolagens e evolução por marcos
 
 Na ficha, toque em um atributo para rolar d20 com seu modificador. Proficiência +2 é opcional e deve ser marcada quando o teste permitir. Dados avulsos incluem d20, d8 e d10, citados nos materiais. A conta mostra o dado e cada bônus; não decide sucesso ou falha automaticamente.
 
-O Livro do Mestre v1.0 usa progressão por marcos, não por pontos. O marcador de XP, solicitado para o app, é um registro opcional de total inteiro não negativo por personagem, sem alterar o nível. Rolagens e XP funcionam localmente; XP é perdido ao reiniciar, assim como as fichas. O campo projeto/aventura foi removido.
+O marcador de XP foi removido. Na ficha, abra **Evolução por marcos**, descreva a conquista e confirme que o Mestre autorizou o avanço da equipe. O personagem passa do nível 1 para o 2; o Estresse máximo é recalculado e a proficiência permanece +2. O marco fica registrado na ficha. Um novo clique não avança novamente.
+
+O refinamento de uma habilidade inicial é combinado com o Mestre e registrado no caderno. Arquétipos, melhorias de atributos e níveis acima de 2 ficam para a próxima versão. Cada ficha avança individualmente; o aplicativo não sincroniza uma campanha. Tudo permanece em memória. O campo projeto/aventura continua removido.
 
 ## Revisão da primeira entrega
 
-Consulte [a revisão do TP1](docs/REVISAO-TP1.md) para a matriz de requisitos, fontes verificadas, adaptações e roteiro final no Expo Go. Estresse representa o máximo inicial; perdas e recuperação podem ser anotadas no caderno.
+Consulte [a revisão do TP1](docs/REVISAO-TP1.md) para a matriz de requisitos, fontes verificadas, adaptações e roteiro final no Expo Go. Estresse representa o máximo do nível atual; perdas e recuperação podem ser anotadas no caderno.

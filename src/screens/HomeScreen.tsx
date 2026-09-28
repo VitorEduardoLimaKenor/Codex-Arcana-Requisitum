@@ -105,7 +105,7 @@ export function HomeScreen({
             <ClassBadge classId={item.classId} />
             <View style={{ flex: 1, gap: 5 }}>
               <Text style={styles.eyebrow}>
-                {item.example ? "EXEMPLO" : "SEU PERSONAGEM"} · NV. 1
+                {item.example ? "EXEMPLO" : "SEU PERSONAGEM"} · NV. {item.level}
               </Text>
               <Text style={styles.section}>{item.name}</Text>
               <Text style={styles.label}>{getClass(item.classId).name}</Text>

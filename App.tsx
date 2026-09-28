@@ -3,7 +3,7 @@ import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { initialCharacters, type Character } from "./src/data/codex";
+import { advanceAtMilestone, initialCharacters, type Character } from "./src/data/codex";
 import type { Routes } from "./src/navigation";
 import { HomeScreen } from "./src/screens/HomeScreen";
 import { ClassesScreen, ClassDetailScreen } from "./src/screens/ClassesScreen";
@@ -68,7 +68,7 @@ export default function App() {
                   const id = `character-${nextId.current++}`;
                   setCharacters((current) => [
                     ...current,
-                    { id, name, classId, xp: 0, note: "" },
+                    { id, name, classId, level: 1, milestone: "", note: "" },
                   ]);
                   return id;
                 }}
@@ -83,9 +83,9 @@ export default function App() {
                 character={characters.find(
                   (item) => item.id === props.route.params.characterId,
                 )}
-                onXpChange={(xp) =>
+                onAdvance={(milestone) =>
                   setCharacters((current) => current.map((item) =>
-                    item.id === props.route.params.characterId ? { ...item, xp } : item,
+                    item.id === props.route.params.characterId ? advanceAtMilestone(item, milestone) : item,
                   ))
                 }
                 onNoteChange={(note) =>

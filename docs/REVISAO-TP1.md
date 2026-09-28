@@ -2,6 +2,8 @@
 
 Data: 28/09/2026.
 
+Atualização posterior aprovada: XP foi removido e substituído por um marco autorizado pelo Mestre, com avanço único do nível 1 ao 2. O Estresse máximo acompanha o nível; proficiência continua +2. As observações sobre XP e nível fixo 1 abaixo registram a revisão anterior. O roteiro vigente deve testar o marco em lugar do XP.
+
 O projeto atende à estrutura e ao recorte funcional do TP1. A revisão automatizada e os fluxos no navegador passaram. A aprovação integral em Expo Go ainda depende do roteiro no aparelho abaixo; a imagem enviada pelo usuário comprova a tela inicial aberta, não todos os fluxos.
 
 ## Requisitos da disciplina
@@ -83,3 +85,5 @@ Itens antigos sem uso no fluxo atual: `scripts/reset-project.js` e imagens reman
 6. Abrir os tópicos do guia. Reiniciar e confirmar o retorno apenas à ficha de exemplo, conforme o aviso do app.
 
 Após esse roteiro, o responsável pela entrega pode confirmar o requisito de execução integral no Expo Go.
+
+A alteração de progressão passou em TypeScript, lint e 10 testes, incluindo marco vazio, proteção contra avanço repetido e cálculo de Estresse nas cinco classes.

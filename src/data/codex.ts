@@ -402,12 +402,12 @@ export function getModel(characterClass: CharacterClass) {
     };
   });
 }
-export function getStats(characterClass: CharacterClass) {
+export function getStats(characterClass: CharacterClass, level: 1 | 2 = 1) {
   const model = getModel(characterClass);
   const mod = (id: AttributeId) =>
     model.find((item) => item.id === id)!.modifier;
   return {
-    stress: characterClass.stressBase + mod("RES"),
+    stress: characterClass.stressBase + mod("RES") * level,
     initiative: mod("COM") + mod("LID"),
     confidence: mod("EMP") + mod("ETI"),
     quality: mod("MOD") + mod("ANA"),
@@ -418,16 +418,22 @@ export type Character = {
   id: string;
   name: string;
   classId: ClassId;
-  xp: number;
+  level: 1 | 2;
+  milestone: string;
   note: string;
   example?: boolean;
 };
+export function advanceAtMilestone(character: Character, milestone: string): Character {
+  if (character.level !== 1 || !milestone.trim()) return character;
+  return { ...character, level: 2, milestone: milestone.trim() };
+}
 export const initialCharacters: Character[] = [
   {
     id: "example",
     name: "Davi / ficha de exemplo",
     classId: "requirements",
-    xp: 0,
+    level: 1,
+    milestone: "",
     note: "Confirmar com a bibliotecária como funciona a renovação dos empréstimos.",
     example: true,
   },
