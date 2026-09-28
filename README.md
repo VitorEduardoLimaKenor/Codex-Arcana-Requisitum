@@ -87,7 +87,7 @@ Validação realizada no navegador: campos obrigatórios, criação direta e a p
 
 ## Histórico
 
-Implementação em `feat/codex-arcana-tp1`. O protótipo anterior permanece em `feat/caderno-rpg`. A branch do montador e a tag de entrega ainda não foram criadas.
+A implementação do TP1 está atualmente em `main` (originalmente desenvolvida em `feat/codex-arcana-tp1`). O protótipo anterior permanece em `feat/caderno-rpg`. A branch do montador e a tag de entrega ainda não foram criadas.
 
 Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).
 

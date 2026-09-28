@@ -228,3 +228,5 @@ Por solicitação do usuário, a ficha oferece rolagem de d20 por atributo, com 
 ### Revisão com a pasta Codex_Arcana (28/09/2026)
 
 A fonte adicional `Livro do Mestre/Livro do Mestre v1.0.0.html` contém regras desenvolvidas que não constavam no antigo esqueleto. O guia agora resume testes, CD, graus de resultado, vantagem/desvantagem, PE e progressão por marcos. XP permanece um marcador opcional do aplicativo, não uma regra oficial de progressão. As decisões do usuário sobre cinco classes e bônus +2/+1 continuam prevalecendo. Veja `REVISAO-TP1.md` para a revisão consolidada.
+
+Na revisão, a branch ativa encontrada foi `main`, que contém a implementação do TP1. As referências anteriores a `feat/codex-arcana-tp1` registram o histórico do desenvolvimento.
