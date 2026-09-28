@@ -1,5 +1,6 @@
 import { SectionList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Disclosure } from "../components/Disclosure";
 import { attributes } from "../data/codex";
 import { styles } from "../styles";
 const sections = [
@@ -19,7 +20,7 @@ const sections = [
       {
         name: "Como criar no aplicativo",
         description:
-          "Informe um nome, escolha uma classe e, se quiser, um projeto. Você recebe um modelo de nível 1 com os 36 pontos já distribuídos. Revise a prévia e toque em Salvar ficha.",
+          "Escolha sua classe, dê um nome ao personagem e confira o resumo. Os 36 pontos já estão distribuídos. Toque em Salvar ficha para começar.",
       },
     ],
   },
@@ -78,13 +79,10 @@ export function GuideScreen() {
         contentContainerStyle={styles.content}
         ListHeaderComponent={
           <View style={{ gap: 10 }}>
-            <Text style={styles.eyebrow}>
-              UM GUIA PARA SUA PRIMEIRA JORNADA
-            </Text>
+            <Text style={styles.eyebrow}>APRENDA NO SEU RITMO</Text>
             <Text style={styles.title}>Entenda sua ficha</Text>
             <Text style={styles.subtitle}>
-              Não precisa ter jogado RPG antes. Comece pelo seu papel e conheça
-              as competências da equipe.
+              Toque em um assunto para descobrir como funciona.
             </Text>
           </View>
         }
@@ -92,10 +90,9 @@ export function GuideScreen() {
           <Text style={styles.section}>{section.title}</Text>
         )}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.section}>{item.name}</Text>
+          <Disclosure title={item.name}>
             <Text style={styles.body}>{item.description}</Text>
-          </View>
+          </Disclosure>
         )}
       />
     </SafeAreaView>

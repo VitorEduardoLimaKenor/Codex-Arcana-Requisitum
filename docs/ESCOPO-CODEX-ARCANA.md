@@ -216,3 +216,7 @@ A autorização de implementação consolidou o recorte de seis telas com modelo
 Para fechar os modelos mockados, foi adotada base de Estresse 8 nas cinco classes: referências HTML para Requisitos, Negócios, UX e Qualidade; adaptação local para Desenvolvedor. Proficiências e equipamentos de Desenvolvedor, além do conteúdo de interfaces/protótipos de UX/UI, foram adaptados aos papéis definidos. Essas escolhas estão documentadas no README e não pretendem fixar regras oficiais futuras do sistema.
 
 O visual medieval anterior foi substituído pela referência escura mais recente do usuário. O indicador de Estresse usa número e legenda separados, com altura de linha explícita.
+
+### Refinamento visual e didático
+
+A criação do TP1 agora divide o mesmo formulário em três etapas internas: classe, identidade e revisão. Mantém os modelos prontos e as seis rotas existentes. Insígnias coloridas identificam as classes; detalhes, cálculos e tópicos do guia ficam recolhidos até o toque. Este refinamento não implementa a distribuição livre de pontos da entrega B.

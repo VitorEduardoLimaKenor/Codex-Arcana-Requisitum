@@ -1,6 +1,8 @@
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   SectionList,
   StyleSheet,
   Text,
@@ -18,6 +20,7 @@ import {
   signed,
 } from "../data/codex";
 import { ClassContents } from "../components/ClassContents";
+import { ClassBadge, classLook } from "../components/ClassCard";
 import { Button } from "../components/Button";
 import { colors, styles } from "../styles";
 type Props = NativeStackScreenProps<Routes, "Character"> & {
@@ -29,6 +32,7 @@ export function CharacterScreen({
   onNoteChange,
   navigation,
 }: Props) {
+  const [showMath, setShowMath] = useState(false);
   if (!character)
     return (
       <View style={styles.content}>
@@ -36,9 +40,10 @@ export function CharacterScreen({
         <Button title="Minhas fichas" onPress={() => navigation.popToTop()} />
       </View>
     );
-  const characterClass = getClass(character.classId);
-  const model = getModel(characterClass);
-  const stats = getStats(characterClass);
+  const chosen = getClass(character.classId);
+  const look = classLook[chosen.id];
+  const stats = getStats(chosen);
+  const model = getModel(chosen);
   const sections = ["Intrapessoal", "Interpessoal", "Técnico"].map((title) => ({
     title,
     data: model.filter((item) => item.pillar === title),
@@ -52,85 +57,133 @@ export function CharacterScreen({
       <SafeAreaView edges={["bottom", "left", "right"]} style={styles.page}>
         <SectionList
           sections={sections}
+          extraData={showMath}
           keyExtractor={(item) => item.id}
           stickySectionHeadersEnabled={false}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { gap: 8 }]}
           ListHeaderComponent={
-            <View style={{ gap: 20 }}>
-              <Text style={styles.eyebrow}>
-                {character.example ? "FICHA DEMONSTRATIVA" : "SEU PERSONAGEM"} ·
-                NÍVEL 1
-              </Text>
-              <Text style={styles.title}>{character.name}</Text>
-              <Text style={styles.section}>{characterClass.name}</Text>
-              <Text style={styles.subtitle}>
-                {character.project || "Sem organização/projeto informado"}
-              </Text>
-              <View style={styles.card}>
-                <Text style={styles.label}>PONTOS DE ESTRESSE</Text>
+            <View style={{ gap: 18, marginBottom: 8 }}>
+              <View
+                style={[
+                  styles.card,
+                  { alignItems: "center", borderColor: look.color },
+                ]}
+              >
+                <ClassBadge classId={chosen.id} large />
+                <Text style={[styles.eyebrow, { color: look.color }]}>
+                  {character.example ? "EXEMPLO" : "PERSONAGEM PRONTO"} · NÍVEL
+                  1
+                </Text>
+                <Text style={[styles.title, { textAlign: "center" }]}>
+                  {character.name}
+                </Text>
+                <Text style={[styles.subtitle, { textAlign: "center" }]}>
+                  {chosen.name}
+                </Text>
+                {!!character.project && (
+                  <Text style={styles.label}>{character.project}</Text>
+                )}
+              </View>
+              <View
+                style={[
+                  styles.card,
+                  { flexDirection: "row", alignItems: "center", gap: 18 },
+                ]}
+              >
                 <Text style={local.number}>{stats.stress}</Text>
-                <Text style={styles.subtitle}>
-                  Base {characterClass.stressBase} + modificador de RES. Recurso
-                  de pressão do projeto; valor de referência no nível 1.
-                </Text>
+                <View style={{ flex: 1, gap: 5 }}>
+                  <Text style={styles.body}>Pontos de Estresse</Text>
+                  <Text style={styles.label}>
+                    Sua resistência à pressão do projeto.
+                  </Text>
+                </View>
               </View>
-              <View style={styles.card}>
-                <Text style={styles.body}>
-                  Iniciativa: {signed(stats.initiative)}
-                </Text>
-                <Text style={styles.body}>
-                  Confiança: {signed(stats.confidence)}
-                </Text>
-                <Text style={styles.body}>
-                  Qualidade: {signed(stats.quality)}
-                </Text>
-                <Text style={styles.body}>
-                  Proficiência: {signed(stats.proficiency)}
-                </Text>
+              <View style={local.stats}>
+                {[
+                  ["Iniciativa", stats.initiative],
+                  ["Confiança", stats.confidence],
+                  ["Qualidade", stats.quality],
+                  ["Proficiência", stats.proficiency],
+                ].map(([label, value]) => (
+                  <View key={label} style={local.stat}>
+                    <Text style={[styles.section, { color: colors.accent }]}>
+                      {signed(Number(value))}
+                    </Text>
+                    <Text style={styles.label}>{label}</Text>
+                  </View>
+                ))}
               </View>
-              <Text style={styles.section}>Atributos · 36/36 pontos</Text>
-              <Text style={styles.subtitle}>
-                Modelo pronto. Base + bônus = total; o modificador usa o total
-                final.
-              </Text>
+              <View style={styles.row}>
+                <Text style={[styles.section, styles.grow]}>
+                  Seus atributos
+                </Text>
+                <Text style={styles.eyebrow}>36/36 PONTOS</Text>
+              </View>
+              <Pressable
+                accessibilityRole="button"
+                aria-pressed={showMath}
+                onPress={() => setShowMath(!showMath)}
+                style={{ minHeight: 44, justifyContent: "center" }}
+              >
+                <Text style={{ color: colors.accent, fontSize: 14 }}>
+                  {showMath
+                    ? "Ocultar cálculos"
+                    : "Como os atributos foram calculados?"}
+                </Text>
+              </Pressable>
             </View>
           }
           renderSectionHeader={({ section }) => (
-            <Text style={styles.eyebrow}>{section.title}</Text>
+            <Text style={[styles.eyebrow, { marginTop: 12, marginBottom: 5 }]}>
+              {section.title}
+            </Text>
           )}
           renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text style={styles.body}>
-                {item.id} · {item.name}
-              </Text>
-              <View style={styles.row}>
-                <Text style={styles.section}>
-                  {item.base} + {item.bonus} = {item.total}
-                </Text>
-                <Text style={styles.body}>Mod. {signed(item.modifier)}</Text>
+            <View style={local.attribute}>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
+              >
+                <View style={{ flex: 1, gap: 3 }}>
+                  <Text style={styles.label}>{item.id}</Text>
+                  <Text style={styles.body}>{item.name}</Text>
+                </View>
+                <Text style={styles.section}>{item.total}</Text>
+                <Text style={local.modifier}>{signed(item.modifier)}</Text>
               </View>
-              <Text style={styles.subtitle}>Custo: {item.cost} pontos</Text>
+              {showMath && (
+                <Text style={styles.subtitle}>
+                  Base {item.base} + bônus {item.bonus} = {item.total} · custo{" "}
+                  {item.cost}
+                </Text>
+              )}
             </View>
           )}
           ListFooterComponent={
-            <View style={{ gap: 20 }}>
-              <ClassContents characterClass={characterClass} />
-              <Text style={styles.section}>Minha anotação</Text>
+            <View style={{ gap: 16, marginTop: 16 }}>
+              <Text style={styles.label}>
+                Número maior: atributo · selo: modificador do teste.
+              </Text>
+              <ClassContents characterClass={chosen} />
+              <Button
+                secondary
+                title="Entender minha ficha"
+                onPress={() => navigation.navigate("Guide")}
+              />
+              <Text style={styles.section}>Seu caderno</Text>
               <TextInput
                 accessibilityLabel="Minha anotação"
-                style={[styles.input, { minHeight: 140 }]}
+                style={[styles.input, { minHeight: 110 }]}
                 multiline
                 textAlignVertical="top"
                 maxLength={2000}
                 value={character.note}
                 onChangeText={onNoteChange}
-                placeholder="Registre uma descoberta ou dúvida…"
+                placeholder="Uma pista, uma ideia, uma dúvida…"
                 placeholderTextColor={colors.muted}
               />
               <Text style={styles.notice}>
-                Anotação atualizada nesta ficha enquanto você digita. Ela será
-                perdida ao recarregar o app.
+                Salvo nesta sessão. Recarregar apaga suas alterações.
               </Text>
               <Button
                 secondary
@@ -146,10 +199,35 @@ export function CharacterScreen({
 }
 const local = StyleSheet.create({
   number: {
-    fontSize: 46,
-    lineHeight: 60,
+    fontSize: 44,
+    lineHeight: 58,
+    color: colors.primary,
+    fontWeight: "800",
+    includeFontPadding: true,
+  },
+  stats: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  stat: {
+    flexGrow: 1,
+    flexBasis: "45%",
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 16,
+    padding: 14,
+    gap: 5,
+  },
+  attribute: {
+    backgroundColor: colors.card,
+    borderRadius: 12,
+    padding: 13,
+    gap: 8,
+  },
+  modifier: {
     color: colors.primary,
     fontWeight: "700",
-    includeFontPadding: true,
+    fontSize: 15,
+    backgroundColor: colors.selected,
+    padding: 8,
+    borderRadius: 9,
   },
 });

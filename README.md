@@ -19,7 +19,7 @@ Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. P
 1. **Início / Minhas fichas:** apresentação, acessos ao catálogo, guia e criação, além da lista de fichas.
 2. **Classes:** catálogo das cinco classes confirmadas.
 3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
-4. **Criar ficha:** nome obrigatório, classe obrigatória, projeto opcional e prévia de modelo pronto no nível 1.
+4. **Criar ficha:** três etapas curtas — escolher classe, informar nome/projeto e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
 5. **Minha ficha:** atributos por pilar, estatísticas derivadas e anotação individual.
 6. **Guia do sistema:** conceitos para iniciantes, regras de leitura e explicação dos modelos.
 
@@ -65,7 +65,7 @@ tests/models.test.cjs           # Verificações dos modelos (Node, sem bibliote
 
 As listas usam FlatList/SectionList. A tela de detalhes usa ScrollView no celular e rolagem do navegador em `Screen.web.tsx`. Não há ScrollView declarado nas telas web; o mecanismo interno das listas é fornecido pelo React Native.
 
-O tema segue a referência mais recente: fundo escuro, cartões grafite, destaques verdes e banner ciano/violeta. A fonte é a do sistema; nenhuma fonte é baixada em execução.
+O tema segue a referência mais recente: fundo escuro, cartões grafite, destaques verdes e banner ciano/violeta. Cada classe tem uma insígnia e uma cor. Habilidades, explicações do guia e cálculos abrem sob demanda para reduzir a leitura inicial. A fonte é a do sistema; nenhuma fonte é baixada em execução.
 
 ## Verificações
 
@@ -81,7 +81,7 @@ npx expo export --platform all
 
 Os testes verificam catálogo, bônus +2/+1, orçamento de 36 pontos, limites, modificadores negativos, estatísticas e ausência de acúmulo de bônus.
 
-Validação realizada no navegador: campos obrigatórios, criação direta e a partir da classe, pré-seleção, cancelamento, duas fichas com anotações independentes, guia, retorno e reinicialização dos dados. Layout conferido em 320 e 390 px.
+Validação realizada no navegador: campos obrigatórios, criação direta e a partir da classe, pré-seleção, cancelamento, duas fichas com anotações independentes, guia, retorno e reinicialização dos dados. Layout conferido em 320 e 390 px. O fluxo em três etapas também foi verificado: validação de nome, troca de classe preservando identidade, revisão, gravação e abertura dos conteúdos recolhidos.
 
 **Pendente:** teste físico no Expo Go, incluindo teclado, botão Voltar do Android e fonte ampliada. Compilar Android/iOS não substitui esse teste.
 

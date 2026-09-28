@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  background: "#191C23",
-  card: "#2C3140",
+  background: "#121622",
+  card: "#1E2536",
   primary: "#43F2B3",
   text: "#F4F6FC",
   muted: "#B6BECE",
-  border: "#434B60",
+  border: "#343F56",
   accent: "#10D9EF",
-  header: "#14171C",
+  header: "#101420",
   selected: "#193D39",
   error: "#FF9DAD",
 };
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   body: { fontSize: 15, lineHeight: 24, color: colors.text },
   card: {
     backgroundColor: colors.card,
-    borderRadius: 12,
+    borderRadius: 18,
     padding: 18,
     borderWidth: 1,
     borderColor: colors.border,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   grow: { flex: 1 },
   button: {
     backgroundColor: colors.primary,
-    borderRadius: 10,
+    borderRadius: 14,
     borderWidth: 1,
     borderColor: colors.primary,
     paddingHorizontal: 18,
@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.header,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 10,
+    borderRadius: 14,
     padding: 15,
     fontSize: 16,
     color: colors.text,

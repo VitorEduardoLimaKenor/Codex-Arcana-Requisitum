@@ -3,7 +3,7 @@ import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
+  StyleSheet,
   Text,
   TextInput,
   View,
@@ -13,27 +13,43 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { Routes } from "../navigation";
 import {
   type ClassId,
+  attributes,
   classes,
   getClass,
   getModel,
   signed,
 } from "../data/codex";
 import { Button } from "../components/Button";
+import { Screen } from "../components/Screen";
+import { ClassBadge, ClassCard, classLook } from "../components/ClassCard";
+import { Disclosure } from "../components/Disclosure";
 import { colors, styles } from "../styles";
 type Props = NativeStackScreenProps<Routes, "CreateCharacter"> & {
   onCreate: (name: string, classId: ClassId, project: string) => string;
 };
 export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
+  const [step, setStep] = useState(0);
   const [name, setName] = useState("");
   const [project, setProject] = useState("");
   const [classId, setClassId] = useState<ClassId | undefined>(
     route.params?.classId,
   );
   const [error, setError] = useState("");
-  const selectedClass = classId ? getClass(classId) : undefined;
-  function save() {
-    if (!name.trim() || !classId) {
-      setError("Informe o nome e escolha uma classe.");
+  const chosen = classId ? getClass(classId) : undefined;
+  const headings = [
+    "Qual é o seu papel?",
+    "Como vamos te chamar?",
+    "Tudo pronto para começar!",
+  ];
+  function next() {
+    if (!classId) return;
+    if (step === 1 && !name.trim()) {
+      setError("Seu personagem precisa de um nome.");
+      return;
+    }
+    setError("");
+    if (step < 2) {
+      setStep(step + 1);
       return;
     }
     const characterId = onCreate(name.trim(), classId, project.trim());
@@ -45,31 +61,95 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={100}
     >
-      <SafeAreaView edges={["bottom", "left", "right"]} style={styles.page}>
+      <View
+        style={local.progress}
+        accessibilityLabel={`Etapa ${step + 1} de 3`}
+      >
+        {["Classe", "Identidade", "Pronto"].map((label, index) => (
+          <View key={label} style={local.progressItem}>
+            <View
+              style={[
+                local.progressLine,
+                index <= step && { backgroundColor: colors.primary },
+              ]}
+            />
+            <Text
+              style={[
+                styles.label,
+                index === step && { color: colors.primary },
+              ]}
+            >
+              {index + 1}. {label}
+            </Text>
+          </View>
+        ))}
+      </View>
+      {step === 0 ? (
         <FlatList
           data={classes}
+          extraData={classId}
           keyExtractor={(item) => item.id}
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { gap: 12 }]}
           ListHeaderComponent={
-            <View style={{ gap: 14 }}>
-              <Text style={styles.eyebrow}>UM NOVO INTEGRANTE DA EQUIPE</Text>
-              <Text style={styles.title}>Crie sua ficha</Text>
+            <View style={{ gap: 8, marginBottom: 8 }}>
+              <Text style={styles.title}>{headings[step]}</Text>
               <Text style={styles.subtitle}>
-                Nível 1 · Modelo pronto da classe. Os 36 pontos já estão
-                distribuídos para você.
+                Escolha o que você gosta de fazer.
               </Text>
+            </View>
+          }
+          renderItem={({ item }) => (
+            <ClassCard
+              item={item}
+              selected={classId === item.id}
+              selection
+              onPress={() => setClassId(item.id)}
+            />
+          )}
+        />
+      ) : (
+        <Screen key={step}>
+          <Text style={styles.title}>{headings[step]}</Text>
+          {chosen && (
+            <View
+              style={[
+                styles.card,
+                {
+                  alignItems: "center",
+                  gap: 12,
+                  borderColor: classLook[chosen.id].color,
+                },
+              ]}
+            >
+              <ClassBadge classId={chosen.id} large />
+              <Text style={styles.eyebrow}>
+                NÍVEL 1 · {classLook[chosen.id].title.toUpperCase()}
+              </Text>
+              <Text style={[styles.section, { textAlign: "center" }]}>
+                {step === 2 ? name.trim() : chosen.name}
+              </Text>
+              <Text style={[styles.subtitle, { textAlign: "center" }]}>
+                {step === 2 ? chosen.name : classLook[chosen.id].action}
+              </Text>
+            </View>
+          )}
+          {step === 1 ? (
+            <View style={{ gap: 12 }}>
               <Text style={styles.label}>Nome do personagem *</Text>
               <TextInput
                 accessibilityLabel="Nome do personagem"
                 style={styles.input}
                 value={name}
-                onChangeText={setName}
+                onChangeText={(value) => {
+                  setName(value);
+                  setError("");
+                }}
                 maxLength={60}
-                placeholder="Como seu personagem se chama?"
+                placeholder="Pode ser um nome ou apelido"
                 placeholderTextColor={colors.muted}
+                returnKeyType="next"
               />
-              <Text style={styles.label}>Organização / projeto (opcional)</Text>
+              <Text style={styles.label}>Projeto (opcional)</Text>
               <TextInput
                 accessibilityLabel="Organização ou projeto"
                 style={styles.input}
@@ -79,71 +159,112 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
                 placeholder="Ex.: Portal da biblioteca"
                 placeholderTextColor={colors.muted}
               />
-              <Text style={styles.section}>Escolha uma classe *</Text>
-            </View>
-          }
-          renderItem={({ item }) => (
-            <Pressable
-              accessibilityRole="radio"
-              aria-checked={classId === item.id}
-              accessibilityLabel={item.name}
-              accessibilityState={{ checked: classId === item.id }}
-              onPress={() => setClassId(item.id)}
-              style={({ pressed }) => [
-                styles.card,
-                classId === item.id && {
-                  borderColor: colors.primary,
-                  backgroundColor: colors.selected,
-                },
-                pressed && styles.pressed,
-              ]}
-            >
-              <Text style={styles.section}>
-                {classId === item.id ? "◆ " : "◇ "}
-                {item.name}
-              </Text>
-              <Text style={styles.subtitle}>
-                {item.primary} +2 · {item.secondary} +1
-              </Text>
-            </Pressable>
-          )}
-          ListFooterComponent={
-            <View style={{ gap: 16 }}>
-              {selectedClass && (
-                <View style={styles.card}>
-                  <Text style={styles.section}>Prévia do modelo</Text>
-                  <Text style={styles.body}>
-                    {selectedClass.name} · 36/36 pontos
-                  </Text>
-                  <Text style={styles.subtitle}>
-                    Base + bônus = total · modificador
-                  </Text>
-                  {getModel(selectedClass).map((item) => (
-                    <Text key={item.id} style={styles.body}>
-                      {item.id}: {item.base} + {item.bonus} = {item.total} ·{" "}
-                      {signed(item.modifier)}
-                    </Text>
-                  ))}
-                </View>
-              )}
               {!!error && (
                 <Text accessibilityRole="alert" style={styles.error}>
                   {error}
                 </Text>
               )}
-              <Button title="Salvar ficha" onPress={save} />
-              <Button
-                title="Cancelar"
-                secondary
-                onPress={() => navigation.goBack()}
-              />
-              <Text style={styles.notice}>
-                A ficha será mantida apenas enquanto o app não for recarregado.
-              </Text>
             </View>
-          }
-        />
+          ) : (
+            chosen && (
+              <>
+                {!!project.trim() && (
+                  <Text style={styles.subtitle}>Projeto: {project.trim()}</Text>
+                )}
+                <Text style={styles.section}>Seus pontos fortes</Text>
+                <View style={{ gap: 10 }}>
+                  {[chosen.primary, chosen.secondary].map((id, index) => (
+                    <View
+                      key={id}
+                      style={[
+                        styles.card,
+                        { flexDirection: "row", alignItems: "center" },
+                      ]}
+                    >
+                      <Text style={[styles.body, { flex: 1 }]}>
+                        {attributes.find((item) => item.id === id)?.name}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.section,
+                          { color: classLook[chosen.id].color },
+                        ]}
+                      >
+                        +{index === 0 ? 2 : 1}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+                <Text style={styles.subtitle}>
+                  Seus 36 pontos já estão distribuídos. É só jogar!
+                </Text>
+                <Disclosure title="Conferir atributos do modelo">
+                  {getModel(chosen).map((item) => (
+                    <Text key={item.id} style={styles.body}>
+                      {item.id}: {item.base} + {item.bonus} = {item.total} ·
+                      mod. {signed(item.modifier)}
+                    </Text>
+                  ))}
+                </Disclosure>
+                <Text style={styles.notice}>
+                  Esta ficha fica nesta sessão. Recarregar o app apaga suas
+                  alterações.
+                </Text>
+              </>
+            )
+          )}
+        </Screen>
+      )}
+      <SafeAreaView edges={["bottom", "left", "right"]} style={local.footer}>
+        <View style={local.footerContent}>
+          <Button
+            title={
+              step === 2
+                ? "Salvar ficha"
+                : step === 0
+                  ? "Escolher esta classe"
+                  : "Conferir personagem"
+            }
+            disabled={!chosen}
+            onPress={next}
+          />
+          <Button
+            secondary
+            title={step === 0 ? "Cancelar" : "Voltar uma etapa"}
+            onPress={() => {
+              setError("");
+              if (step === 0) navigation.goBack();
+              else setStep(step - 1);
+            }}
+          />
+        </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
+const local = StyleSheet.create({
+  progress: {
+    flexDirection: "row",
+    gap: 12,
+    paddingHorizontal: 18,
+    paddingTop: 12,
+    paddingBottom: 8,
+    maxWidth: 640,
+    width: "100%",
+    alignSelf: "center",
+  },
+  progressItem: { flex: 1, gap: 8 },
+  progressLine: { height: 4, borderRadius: 4, backgroundColor: colors.border },
+  footer: {
+    backgroundColor: colors.header,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  footerContent: {
+    padding: 12,
+    gap: 8,
+    maxWidth: 640,
+    width: "100%",
+    alignSelf: "center",
+  },
+});
