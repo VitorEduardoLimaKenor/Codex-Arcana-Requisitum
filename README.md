@@ -1,75 +1,127 @@
-# Codex Arcana — Trabalho Prático 1
+# Codex Arcana Mobile
 
-Aplicativo de apoio ao RPG educacional de Engenharia de Requisitos. React Native com Expo SDK 57 e React Navigation, com seis telas, dados locais e criação de fichas por modelos prontos.
+**Trabalho Prático 1 · Desenvolvimento de Aplicações para Dispositivos Móveis**
 
-## Executar
+![Livro luminoso do Codex Arcana em um fundo violeta e ciano](assets/images/codex-banner.png)
 
-Na pasta pai do projeto:
+Um aplicativo para conhecer as classes do Codex Arcana, criar uma ficha de personagem e ter as informações por perto durante a sessão de RPG.
+
+## Por que escolhi esse tema
+
+Desenvolvi este aplicativo como trabalho da disciplina de **Desenvolvimento de Aplicações para Dispositivos Móveis**. A ideia foi colocar em prática os conteúdos estudados em aula e, ao mesmo tempo, criar algo que pudesse ajudar em outro projeto do qual participo: o **Codex Arcana**.
+
+O Codex Arcana é um RPG de mesa voltado ao ensino de **Engenharia de Requisitos**. Nele, os jogadores assumem papéis de uma equipe de software e enfrentam situações como entender o que um cliente precisa, negociar prioridades, identificar requisitos ambíguos e validar soluções. O Mestre conduz essas situações, e a equipe precisa conversar, tomar decisões e trabalhar em conjunto.
+
+Escolhi esse tema porque vi uma oportunidade de aproximar os dois projetos. Quem está começando no RPG precisa conhecer as classes, entender os atributos e preencher uma ficha. Minha proposta foi reunir esse primeiro contato em uma interface mais visual, com escolhas por etapas e explicações curtas, para a pessoa aprender aos poucos.
+
+Para esta primeira entrega, mantive a implementação simples. O foco está na interface, na navegação e no uso dos componentes do React Native. O aplicativo funciona com dados locais e modelos prontos de personagem, deixando o montador completo para uma evolução futura.
+
+## O que dá para fazer
+
+- **Conhecer as cinco classes:** consultar o papel de cada uma, seus bônus, habilidades, proficiências e equipamentos.
+- **Criar um personagem:** escolher a classe, informar o nome e revisar a ficha em três etapas.
+- **Consultar a ficha:** visualizar os 12 atributos, modificadores e estatísticas calculadas.
+- **Rolar dados:** tocar em um atributo para rolar d20 com modificador e proficiência opcional, ou usar d8, d10 e d20 avulsos.
+- **Registrar um marco:** avançar do nível 1 para o 2 após uma conquista autorizada pelo Mestre.
+- **Fazer anotações:** manter um pequeno caderno individual para cada personagem.
+- **Aprender a jogar:** abrir os tópicos do guia conforme surgirem dúvidas sobre a ficha e os testes.
+
+### Quem você pode ser?
+
+| Classe | Papel na equipe |
+| --- | --- |
+| Analista de Requisitos | Investiga necessidades e organiza requisitos, diagramas e documentação. |
+| Desenvolvedor de Software | Transforma os requisitos em funcionalidades do sistema. |
+| Analista de Negócios | Entende o negócio e as necessidades das pessoas envolvidas. |
+| UX/UI Designer | Trabalha a experiência do usuário, as interfaces e os protótipos. |
+| Analista de Qualidade | Verifica, valida e planeja testes para encontrar problemas. |
+
+Cada classe tem uma cor e uma insígnia. Os modelos começam no nível 1, com **36 pontos distribuídos**, além de **+2 em um atributo e +1 em outro**. As informações mais detalhadas ficam recolhidas e podem ser abertas com um toque, para não sobrecarregar a leitura.
+
+## O que apliquei da disciplina
+
+O projeto foi desenvolvido com **React Native, Expo e TypeScript**, utilizando **React Navigation** entre as telas.
+
+| Conteúdo trabalhado | Aplicação no projeto |
+| --- | --- |
+| Componentes funcionais | Telas e componentes reutilizáveis, como botões e cartões de classe. |
+| Props | Passagem de dados das fichas, classes e ações entre componentes. |
+| State | Seleção de classe, etapas da criação, personagens, anotações, marcos e resultados dos dados. |
+| `View`, `Text`, `Image` e `Pressable` | Organização das telas, textos, imagem local e controles de interação. |
+| `StyleSheet` e Flexbox | Tema escuro, espaçamento, alinhamento e distribuição dos elementos. |
+| `FlatList` e `SectionList` | Listas de personagens, classes, atributos e tópicos do guia. |
+| React Navigation | Navegação pelas seis telas do aplicativo. |
+| `ScrollView` no mobile | Leitura de conteúdos maiores. Na web, o componente de tela usa a rolagem do navegador. |
+
+O trabalho também me permitiu aplicar validação de campos, separar os dados da interface e compartilhar o mesmo componente em diferentes telas.
+
+## Telas do aplicativo
+
+| Tela | Para que serve |
+| --- | --- |
+| Início | Acessar as fichas, criar um personagem e abrir o catálogo ou o guia. |
+| Classes | Escolher entre os cinco papéis disponíveis. |
+| Detalhes da classe | Entender a classe antes de usá-la. |
+| Criar ficha | Escolher classe, preencher nome e conferir o personagem. |
+| Minha ficha | Consultar atributos, rolar dados, registrar um marco e fazer anotações. |
+| Guia do sistema | Entender a criação da ficha e os primeiros passos na mesa. |
+
+## Como executar
+
+É necessário ter **Node.js compatível com o Expo SDK 57**, npm e o **Expo Go compatível com esse SDK** no celular. O projeto utiliza Node 22.13 ou superior.
+
+No terminal, entre na pasta que contém o `package.json`. Se estiver na pasta pai do projeto:
 
 ```powershell
-cd .\meu-app
+cd meu-app
 npm install
-npm start
+npx expo start
 ```
 
-Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. Para web: `npm run web`. No terminal do Expo, `r` recarrega o aplicativo.
+Com o computador e o celular na mesma rede, abra o projeto pelo QR code no Expo Go. Para executar a versão web, use `npm run web`. Para recarregar durante o desenvolvimento, pressione `r` no terminal do Expo.
 
-## Telas
+> **Sobre os dados:** esta versão usa dados mockados e estado em memória. Não há API, banco de dados, login ou persistência. Ao recarregar ou reiniciar o aplicativo, as fichas criadas, anotações e marcos são apagados, e a ficha de exemplo volta ao estado inicial.
 
-1. **Início / Minhas fichas:** apresentação, acessos ao catálogo, guia e criação, além da lista de fichas.
-2. **Classes:** catálogo das cinco classes confirmadas.
-3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
-4. **Criar ficha:** três etapas curtas — escolher classe, informar nome e revisar o modelo pronto de nível 1. Voltar uma etapa mantém o rascunho.
-5. **Minha ficha:** atributos por pilar, estatísticas derivadas, evolução por marco até o nível 2 e anotação individual.
-6. **Guia do sistema:** criação simplificada, atributos, primeira sessão, testes/CD, proficiência, graus de resultado, vantagem/desvantagem, Estresse e evolução por marcos.
-
-O aplicativo começa com uma ficha demonstrativa. As novas fichas e anotações ficam no estado do App. São perdidas ao recarregar/reiniciar. Não há API, banco, login, persistência ou fonte remota.
-
-## Classes e bônus confirmados
-
-| Classe | +2 | +1 |
-| --- | --- | --- |
-| Analista de Requisitos | COM | MOD |
-| Desenvolvedor de Software | ANA | AUT |
-| Analista de Negócios | NEG | ANA |
-| UX/UI Designer | EMP | MOD |
-| Analista de Qualidade | VAL | CRI |
-
-Cada modelo tem 12 atributos: um valor base 14 (custo 7), um 13 (custo 5), seis 12 (custo 24) e quatro 8 (custo 0). Total: **36 pontos**. Os bônus não consomem pontos. O modificador usa o total após bônus, arredondando `(total - 10) / 2` para baixo.
-
-## Adaptações didáticas desta entrega
-
-Os nomes e bônus foram definidos pelo usuário. Os modelos prontos são distribuições novas, verificadas, e não reproduzem o exemplo inconsistente do tutorial.
-
-- Requisitos, Negócios e Qualidade usam resumos dos papéis de Analista de Requisitos, Business Analyst e QA Engineer do HTML.
-- UX/UI parte de UX Researcher, incluindo prototipagem de interfaces e avaliação de usabilidade para atender ao papel escolhido.
-- Desenvolvedor parte de Programador do PDF. Proficiências e equipamentos foram adaptados para o exemplo didático.
-- Base de Estresse **8** para as cinco classes. Quatro vêm das referências HTML correspondentes; a do Desenvolvedor é uma escolha local do protótipo, pois o PDF não define esse número.
-- Estatísticas nos níveis 1 e 2: Estresse máximo = base + (mod. RES × nível); Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA; Proficiência = +2.
-- Habilidades são resumos para consulta. Não há execução automática de habilidades, recuperação ou colapso. A progressão vai somente até o nível 2, por decisão do Mestre.
-
-Não há distribuição manual, campanhas ou funcionalidades do montador avançado nesta entrega. O montador permanece uma evolução separada.
-
-## Estrutura
+## Organização do projeto
 
 ```text
-App.tsx                         # Estado das fichas e navegação
-src/navigation.ts               # Parâmetros tipados das seis rotas
-src/data/codex.ts                # Classes, atributos, modelos e cálculos de nível 1
-src/screens/                    # Telas funcionais
-src/components/                 # Botões, estrutura de tela e conteúdo de classe
-src/styles.ts                   # Tema escuro, cores e Flexbox
-assets/images/codex-banner.png   # Imagem local
-tests/models.test.cjs           # Verificações dos modelos (Node, sem bibliotecas extras)
+App.tsx                 # Navegação e estado dos personagens
+src/
+  components/           # Componentes reutilizáveis da interface
+  data/                 # Classes, atributos, modelos e cálculos
+  screens/              # Telas do aplicativo
+  navigation.ts         # Tipos das rotas
+  styles.ts             # Cores e estilos compartilhados
+assets/                 # Imagens locais
+tests/                  # Testes das regras e dos cálculos
+docs/                   # Escopo e revisão da entrega
 ```
 
-As listas usam FlatList/SectionList. A tela de detalhes usa ScrollView no celular e rolagem do navegador em `Screen.web.tsx`. Não há ScrollView declarado nas telas web; o mecanismo interno das listas é fornecido pelo React Native.
+## Limites desta primeira versão
 
-O tema segue a referência mais recente: fundo escuro, cartões grafite, destaques verdes e banner ciano/violeta. Cada classe tem uma insígnia e uma cor. Habilidades, explicações do guia e cálculos abrem sob demanda para reduzir a leitura inicial. A fonte é a do sistema; nenhuma fonte é baixada em execução.
+A proposta é apoiar a criação de uma **ficha inicial simplificada**. Ainda não há distribuição livre de pontos, gerenciamento de campanhas, arquétipos ou progressão acima do nível 2.
+
+O avanço acontece por **marcos reconhecidos pelo Mestre**, sem contador de XP. O aplicativo registra a conquista e recalcula o Estresse máximo; a proficiência permanece +2 nos dois níveis. Refinamentos de habilidades são combinados na mesa e podem ser anotados no caderno.
+
+As classes e alguns conteúdos foram adaptados para o recorte do trabalho. As habilidades aparecem como resumos de consulta, e o aplicativo não substitui o Livro do Mestre. O valor de Estresse exibido é o máximo do nível atual; perdas e recuperação podem ser registradas nas anotações.
+
+<details>
+<summary>Adaptações e cálculos usados na ficha</summary>
+
+- Bônus: Requisitos COM +2/MOD +1; Desenvolvimento ANA +2/AUT +1; Negócios NEG +2/ANA +1; UX/UI EMP +2/MOD +1; Qualidade VAL +2/CRI +1.
+- Cada modelo usa um atributo base 14, um 13, seis 12 e quatro 8, totalizando 36 pontos de custo. Os bônus de classe não consomem pontos.
+- Modificador: `(total do atributo − 10) / 2`, arredondado para baixo.
+- Estresse máximo: base da classe + (modificador de RES × nível).
+- Iniciativa: mod. COM + mod. LID; Confiança: mod. EMP + mod. ETI; Qualidade: mod. MOD + mod. ANA.
+- A base de Estresse é 8 nas cinco classes. Para Desenvolvedor, esse valor e parte dos equipamentos/proficiências são adaptações locais do protótipo. UX/UI também inclui adaptações do papel de pesquisa com usuários para interfaces e protótipos.
+
+Essas escolhas organizam a versão acadêmica e não pretendem definir as regras finais do Codex Arcana.
+
+</details>
 
 ## Verificações
 
-Requer Node compatível com Expo SDK 57; para os testes de TypeScript direto, use Node 22.13 ou superior.
+Foram realizadas verificações de TypeScript, lint, testes dos modelos e cálculos, Expo Doctor e exportação dos bundles para Android, iOS e web. Os fluxos também foram conferidos no navegador em telas estreitas.
 
 ```bash
 npm run typecheck
@@ -79,26 +131,13 @@ npx expo-doctor
 npx expo export --platform all
 ```
 
-Os testes verificam catálogo, bônus +2/+1, orçamento de 36 pontos, limites, modificadores negativos, estatísticas e ausência de acúmulo de bônus.
+A validação completa no aparelho com Expo Go ainda precisa incluir teclado, botão Voltar do Android e fonte ampliada. A exportação dos bundles não substitui esse teste.
 
-Validação realizada no navegador: campos obrigatórios, criação direta e a partir da classe, pré-seleção, cancelamento, duas fichas com anotações independentes, guia, retorno e reinicialização dos dados. Layout conferido em 320 e 390 px. O fluxo em três etapas também foi verificado: validação de nome, troca de classe preservando identidade, revisão, gravação e abertura dos conteúdos recolhidos.
+## Próximos passos
 
-**Pendente:** teste físico no Expo Go, incluindo teclado, botão Voltar do Android e fonte ampliada. Compilar Android/iOS não substitui esse teste.
+Depois desta entrega, quero aproveitar a base do aplicativo para desenvolver um montador de fichas mais completo para o Codex Arcana. A ideia é trabalhar essa evolução separadamente, com distribuição de atributos, arquétipos e outras opções do sistema, preservando a simplicidade do primeiro trabalho.
 
-## Histórico
+Para consultar as decisões técnicas e o acompanhamento da entrega:
 
-A implementação do TP1 está atualmente em `main` (originalmente desenvolvida em `feat/codex-arcana-tp1`). O protótipo anterior permanece em `feat/caderno-rpg`. A branch do montador e a tag de entrega ainda não foram criadas.
-
-Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).
-
-## Rolagens e evolução por marcos
-
-Na ficha, toque em um atributo para rolar d20 com seu modificador. Proficiência +2 é opcional e deve ser marcada quando o teste permitir. Dados avulsos incluem d20, d8 e d10, citados nos materiais. A conta mostra o dado e cada bônus; não decide sucesso ou falha automaticamente.
-
-O marcador de XP foi removido. Na ficha, abra **Evolução por marcos**, descreva a conquista e confirme que o Mestre autorizou o avanço da equipe. O personagem passa do nível 1 para o 2; o Estresse máximo é recalculado e a proficiência permanece +2. O marco fica registrado na ficha. Um novo clique não avança novamente.
-
-O refinamento de uma habilidade inicial é combinado com o Mestre e registrado no caderno. Arquétipos, melhorias de atributos e níveis acima de 2 ficam para a próxima versão. Cada ficha avança individualmente; o aplicativo não sincroniza uma campanha. Tudo permanece em memória. O campo projeto/aventura continua removido.
-
-## Revisão da primeira entrega
-
-Consulte [a revisão do TP1](docs/REVISAO-TP1.md) para a matriz de requisitos, fontes verificadas, adaptações e roteiro final no Expo Go. Estresse representa o máximo do nível atual; perdas e recuperação podem ser anotadas no caderno.
+- [Escopo do projeto](docs/ESCOPO-CODEX-ARCANA.md)
+- [Revisão dos requisitos e roteiro de testes](docs/REVISAO-TP1.md)
