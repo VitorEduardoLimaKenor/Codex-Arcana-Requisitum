@@ -1,119 +1,155 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Screen } from "../components/Screen";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  SectionList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type { Routes } from "../navigation";
+import {
+  type Character,
+  getClass,
+  getModel,
+  getStats,
+  signed,
+} from "../data/codex";
+import { ClassContents } from "../components/ClassContents";
 import { Button } from "../components/Button";
-import { character } from "../data/mock";
-import { colors, serif, styles } from "../styles";
-
+import { colors, styles } from "../styles";
+type Props = NativeStackScreenProps<Routes, "Character"> & {
+  character: Character | undefined;
+  onNoteChange: (note: string) => void;
+};
 export function CharacterScreen({
-  health,
-  onHealthChange,
-}: {
-  health: number;
-  onHealthChange: (health: number) => void;
-}) {
+  character,
+  onNoteChange,
+  navigation,
+}: Props) {
+  if (!character)
+    return (
+      <View style={styles.content}>
+        <Text style={styles.section}>Ficha não encontrada</Text>
+        <Button title="Minhas fichas" onPress={() => navigation.popToTop()} />
+      </View>
+    );
+  const characterClass = getClass(character.classId);
+  const model = getModel(characterClass);
+  const stats = getStats(characterClass);
+  const sections = ["Intrapessoal", "Interpessoal", "Técnico"].map((title) => ({
+    title,
+    data: model.filter((item) => item.pillar === title),
+  }));
   return (
-    <Screen>
-      <View style={{ gap: 8 }}>
-        <Text style={styles.eyebrow}>
-          ECOS DA FLORESTA · NÍVEL {character.level}
-        </Text>
-        <Text style={styles.title}>{character.name}</Text>
-        <Text style={styles.subtitle}>
-          {character.race} · {character.role}
-        </Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.label}>PONTOS DE VIDA</Text>
-        <Text style={local.health}>
-          {health}
-          <Text style={styles.subtitle}> / {character.maxHealth} PV</Text>
-        </Text>
-        <View accessible={false} style={local.healthTrack}>
-          <View
-            style={[
-              local.healthFill,
-              { width: `${(health / character.maxHealth) * 100}%` },
-            ]}
-          />
-        </View>
-        <View style={styles.row}>
-          <View style={styles.grow}>
-            <Button
-              secondary
-              title="− 1 PV"
-              disabled={health === 0}
-              onPress={() => onHealthChange(Math.max(0, health - 1))}
-            />
-          </View>
-          <View style={styles.grow}>
-            <Button
-              title="+ 1 PV"
-              disabled={health === character.maxHealth}
-              onPress={() =>
-                onHealthChange(Math.min(character.maxHealth, health + 1))
-              }
-            />
-          </View>
-        </View>
-        <Text style={styles.subtitle}>
-          Classe de armadura: {character.armor} · Deslocamento:{" "}
-          {character.speed}
-        </Text>
-      </View>
-      <Text style={styles.section}>Atributos</Text>
-      <View style={local.attributes}>
-        {character.attributes.map((item) => (
-          <View key={item.name} style={local.attribute}>
-            <Text style={styles.label}>{item.name}</Text>
-            <Text style={local.value}>{item.value}</Text>
-            <Text style={local.modifier}>{item.modifier}</Text>
-          </View>
-        ))}
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.section}>Equipamento</Text>
-        <Text style={styles.body}>{character.equipment}</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.section}>Minha história</Text>
-        <Text style={styles.body}>{character.story}</Text>
-      </View>
-    </Screen>
+    <KeyboardAvoidingView
+      style={styles.page}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+    >
+      <SafeAreaView edges={["bottom", "left", "right"]} style={styles.page}>
+        <SectionList
+          sections={sections}
+          keyExtractor={(item) => item.id}
+          stickySectionHeadersEnabled={false}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.content}
+          ListHeaderComponent={
+            <View style={{ gap: 20 }}>
+              <Text style={styles.eyebrow}>
+                {character.example ? "FICHA DEMONSTRATIVA" : "SEU PERSONAGEM"} ·
+                NÍVEL 1
+              </Text>
+              <Text style={styles.title}>{character.name}</Text>
+              <Text style={styles.section}>{characterClass.name}</Text>
+              <Text style={styles.subtitle}>
+                {character.project || "Sem organização/projeto informado"}
+              </Text>
+              <View style={styles.card}>
+                <Text style={styles.label}>PONTOS DE ESTRESSE</Text>
+                <Text style={local.number}>{stats.stress}</Text>
+                <Text style={styles.subtitle}>
+                  Base {characterClass.stressBase} + modificador de RES. Recurso
+                  de pressão do projeto; valor de referência no nível 1.
+                </Text>
+              </View>
+              <View style={styles.card}>
+                <Text style={styles.body}>
+                  Iniciativa: {signed(stats.initiative)}
+                </Text>
+                <Text style={styles.body}>
+                  Confiança: {signed(stats.confidence)}
+                </Text>
+                <Text style={styles.body}>
+                  Qualidade: {signed(stats.quality)}
+                </Text>
+                <Text style={styles.body}>
+                  Proficiência: {signed(stats.proficiency)}
+                </Text>
+              </View>
+              <Text style={styles.section}>Atributos · 36/36 pontos</Text>
+              <Text style={styles.subtitle}>
+                Modelo pronto. Base + bônus = total; o modificador usa o total
+                final.
+              </Text>
+            </View>
+          }
+          renderSectionHeader={({ section }) => (
+            <Text style={styles.eyebrow}>{section.title}</Text>
+          )}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.body}>
+                {item.id} · {item.name}
+              </Text>
+              <View style={styles.row}>
+                <Text style={styles.section}>
+                  {item.base} + {item.bonus} = {item.total}
+                </Text>
+                <Text style={styles.body}>Mod. {signed(item.modifier)}</Text>
+              </View>
+              <Text style={styles.subtitle}>Custo: {item.cost} pontos</Text>
+            </View>
+          )}
+          ListFooterComponent={
+            <View style={{ gap: 20 }}>
+              <ClassContents characterClass={characterClass} />
+              <Text style={styles.section}>Minha anotação</Text>
+              <TextInput
+                accessibilityLabel="Minha anotação"
+                style={[styles.input, { minHeight: 140 }]}
+                multiline
+                textAlignVertical="top"
+                maxLength={2000}
+                value={character.note}
+                onChangeText={onNoteChange}
+                placeholder="Registre uma descoberta ou dúvida…"
+                placeholderTextColor={colors.muted}
+              />
+              <Text style={styles.notice}>
+                Anotação atualizada nesta ficha enquanto você digita. Ela será
+                perdida ao recarregar o app.
+              </Text>
+              <Button
+                secondary
+                title="Voltar às minhas fichas"
+                onPress={() => navigation.popToTop()}
+              />
+            </View>
+          }
+        />
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const local = StyleSheet.create({
-  healthTrack: {
-    height: 12,
-    backgroundColor: "#CDB78E",
-    borderWidth: 1,
-    borderColor: "#976E45",
-    padding: 2,
-  },
-  healthFill: { height: "100%", backgroundColor: colors.red },
-  health: {
-    color: colors.red,
-    fontFamily: serif,
+  number: {
     fontSize: 46,
+    lineHeight: 60,
+    color: colors.primary,
     fontWeight: "700",
+    includeFontPadding: true,
   },
-  attributes: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  attribute: {
-    flexGrow: 1,
-    flexBasis: "30%",
-    backgroundColor: "#EAD4A7",
-    borderWidth: 2,
-    borderBottomWidth: 4,
-    borderColor: colors.border,
-    borderRadius: 3,
-    alignItems: "center",
-    padding: 14,
-    gap: 5,
-  },
-  value: {
-    color: colors.text,
-    fontFamily: serif,
-    fontSize: 29,
-    fontWeight: "700",
-  },
-  modifier: { color: colors.primary, fontSize: 14, fontWeight: "600" },
 });

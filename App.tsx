@@ -1,37 +1,31 @@
-import { useState } from "react";
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { useRef, useState } from "react";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { initialNotes, character } from "./src/data/mock";
+import { initialCharacters, type Character } from "./src/data/codex";
+import type { Routes } from "./src/navigation";
 import { HomeScreen } from "./src/screens/HomeScreen";
+import { ClassesScreen, ClassDetailScreen } from "./src/screens/ClassesScreen";
+import { CreateCharacterScreen } from "./src/screens/CreateCharacterScreen";
 import { CharacterScreen } from "./src/screens/CharacterScreen";
-import { NotesScreen, NewNoteScreen } from "./src/screens/NotesScreen";
-import { colors, serif } from "./src/styles";
-
-export type Routes = {
-  Home: undefined;
-  Character: undefined;
-  Notes: undefined;
-  NewNote: undefined;
-};
+import { GuideScreen } from "./src/screens/GuideScreen";
+import { colors } from "./src/styles";
 const Stack = createNativeStackNavigator<Routes>();
 const theme = {
-  ...DefaultTheme,
+  ...DarkTheme,
   colors: {
-    ...DefaultTheme.colors,
+    ...DarkTheme.colors,
     background: colors.background,
-    card: colors.background,
+    card: colors.header,
     text: colors.text,
     primary: colors.primary,
     border: colors.border,
   },
 };
-
 export default function App() {
-  const [notes, setNotes] = useState(initialNotes);
-  const [health, setHealth] = useState(character.maxHealth);
-
+  const [characters, setCharacters] = useState<Character[]>(initialCharacters);
+  const nextId = useRef(1);
   return (
     <SafeAreaProvider>
       <StatusBar style="light" />
@@ -39,11 +33,10 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerShadowVisible: false,
-            headerStyle: { backgroundColor: colors.wood },
-            headerTintColor: colors.gold,
+            headerStyle: { backgroundColor: colors.header },
+            headerTintColor: colors.text,
             headerTitleAlign: "center",
             headerTitleStyle: {
-              fontFamily: serif,
               fontSize: 20,
               fontWeight: "700",
             },
@@ -51,50 +44,62 @@ export default function App() {
             contentStyle: { backgroundColor: colors.background },
           }}
         >
-          <Stack.Screen name="Home" options={{ title: "Caderno de aventuras" }}>
-            {(props) => <HomeScreen {...props} noteCount={notes.length} />}
+          <Stack.Screen name="Home" options={{ title: "Codex Arcana" }}>
+            {(props) => <HomeScreen {...props} characters={characters} />}
           </Stack.Screen>
-          <Stack.Screen name="Character" options={{ title: "Minha ficha" }}>
-            {() => (
-              <CharacterScreen health={health} onHealthChange={setHealth} />
+          <Stack.Screen
+            name="Classes"
+            component={ClassesScreen}
+            options={{ title: "Classes" }}
+          />
+          <Stack.Screen
+            name="ClassDetail"
+            component={ClassDetailScreen}
+            options={{ title: "Conheça a classe" }}
+          />
+          <Stack.Screen
+            name="CreateCharacter"
+            options={{ title: "Criar ficha" }}
+          >
+            {(props) => (
+              <CreateCharacterScreen
+                {...props}
+                onCreate={(name, classId, project) => {
+                  const id = `character-${nextId.current++}`;
+                  setCharacters((current) => [
+                    ...current,
+                    { id, name, classId, project, note: "" },
+                  ]);
+                  return id;
+                }}
+              />
             )}
           </Stack.Screen>
-          <Stack.Screen name="Notes" options={{ title: "Diário da campanha" }}>
+          <Stack.Screen name="Character" options={{ title: "Minha ficha" }}>
             {(props) => (
-              <NotesScreen
+              <CharacterScreen
+                key={props.route.params.characterId}
                 {...props}
-                notes={notes}
-                onToggleFavorite={(id) =>
-                  setNotes((current) =>
-                    current.map((note) =>
-                      note.id === id
-                        ? { ...note, favorite: !note.favorite }
-                        : note,
+                character={characters.find(
+                  (item) => item.id === props.route.params.characterId,
+                )}
+                onNoteChange={(note) =>
+                  setCharacters((current) =>
+                    current.map((item) =>
+                      item.id === props.route.params.characterId
+                        ? { ...item, note }
+                        : item,
                     ),
                   )
                 }
               />
             )}
           </Stack.Screen>
-          <Stack.Screen name="NewNote" options={{ title: "Nova anotação" }}>
-            {(props) => (
-              <NewNoteScreen
-                {...props}
-                onSave={(title, text) =>
-                  setNotes((current) => [
-                    {
-                      id: String(Date.now()),
-                      title,
-                      text,
-                      session: "Anotação livre",
-                      favorite: false,
-                    },
-                    ...current,
-                  ])
-                }
-              />
-            )}
-          </Stack.Screen>
+          <Stack.Screen
+            name="Guide"
+            component={GuideScreen}
+            options={{ title: "Guia do sistema" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

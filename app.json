@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Caderno de aventuras",
+    "name": "Codex Arcana",
     "slug": "meu-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "meuapp",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "ios": {
       "icon": "./assets/expo.icon"
     },

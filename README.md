@@ -1,59 +1,92 @@
-﻿# Caderno de aventuras
+# Codex Arcana — Trabalho Prático 1
 
-Trabalho Prático 1 — Interface Mobile. Aplicação simples de RPG em React Native com Expo e React Navigation.
+Aplicativo de apoio ao RPG educacional de Engenharia de Requisitos. React Native com Expo SDK 57 e React Navigation, com seis telas, dados locais e criação de fichas por modelos prontos.
 
-## Executar no Expo Go
+## Executar
 
-```bash
-cd meu-app
+Na pasta pai do projeto:
+
+```powershell
+cd .\meu-app
 npm install
 npm start
 ```
 
-Abra o Expo Go compatível com o SDK 57 e leia o QR code. Computador e celular devem estar na mesma rede. Também é possível executar a versão web com `npm run web`.
+Leia o QR code no Expo Go compatível com SDK 57, na mesma rede do computador. Para web: `npm run web`. No terminal do Expo, `r` recarrega o aplicativo.
 
-## Telas e funcionalidades
+## Telas
 
-- **Início:** campanha fictícia, resumo da personagem e acesso à ficha e ao diário.
-- **Minha ficha:** personagem pronta, atributos, equipamento, história e botões para alterar os pontos de vida entre 0 e 28.
-- **Diário:** listagem de anotações com FlatList e filtro de favoritas.
-- **Nova anotação:** formulário com validação de campos obrigatórios.
+1. **Início / Minhas fichas:** apresentação, acessos ao catálogo, guia e criação, além da lista de fichas.
+2. **Classes:** catálogo das cinco classes confirmadas.
+3. **Detalhes:** função, bônus, habilidades, proficiências e equipamento da classe.
+4. **Criar ficha:** nome obrigatório, classe obrigatória, projeto opcional e prévia de modelo pronto no nível 1.
+5. **Minha ficha:** atributos por pilar, estatísticas derivadas e anotação individual.
+6. **Guia do sistema:** conceitos para iniciantes, regras de leitura e explicação dos modelos.
 
-Todos os dados são fictícios e locais. Não há chamadas a API, autenticação ou banco de dados. Vida, anotações e favoritas ficam no estado do componente App e são reiniciadas ao recarregar o aplicativo. A ficha inicial pode ser personalizada em `src/data/mock.ts`.
+O aplicativo começa com uma ficha demonstrativa. As novas fichas e anotações ficam no estado do App. São perdidas ao recarregar/reiniciar. Não há API, banco, login, persistência ou fonte remota.
+
+## Classes e bônus confirmados
+
+| Classe | +2 | +1 |
+| --- | --- | --- |
+| Analista de Requisitos | COM | MOD |
+| Desenvolvedor de Software | ANA | AUT |
+| Analista de Negócios | NEG | ANA |
+| UX/UI Designer | EMP | MOD |
+| Analista de Qualidade | VAL | CRI |
+
+Cada modelo tem 12 atributos: um valor base 14 (custo 7), um 13 (custo 5), seis 12 (custo 24) e quatro 8 (custo 0). Total: **36 pontos**. Os bônus não consomem pontos. O modificador usa o total após bônus, arredondando `(total - 10) / 2` para baixo.
+
+## Adaptações didáticas desta entrega
+
+Os nomes e bônus foram definidos pelo usuário. Os modelos prontos são distribuições novas, verificadas, e não reproduzem o exemplo inconsistente do tutorial.
+
+- Requisitos, Negócios e Qualidade usam resumos dos papéis de Analista de Requisitos, Business Analyst e QA Engineer do HTML.
+- UX/UI parte de UX Researcher, incluindo prototipagem de interfaces e avaliação de usabilidade para atender ao papel escolhido.
+- Desenvolvedor parte de Programador do PDF. Proficiências e equipamentos foram adaptados para o exemplo didático.
+- Base de Estresse **8** para as cinco classes. Quatro vêm das referências HTML correspondentes; a do Desenvolvedor é uma escolha local do protótipo, pois o PDF não define esse número.
+- Estatísticas no nível 1: Estresse = base + mod. RES; Iniciativa = mod. COM + mod. LID; Confiança = mod. EMP + mod. ETI; Qualidade = mod. MOD + mod. ANA; Proficiência = +2.
+- Habilidades são resumos para consulta. Não há execução automática de ações, recuperação, colapso, rolagens ou progressão.
+
+Não há distribuição manual, campanhas ou funcionalidades do montador avançado nesta entrega. O montador permanece uma evolução separada.
 
 ## Estrutura
 
 ```text
-App.tsx                    # Estado compartilhado e React Navigation
-index.ts                   # Registro do aplicativo no Expo
-src/
-  components/              # Botão e estrutura reutilizável das telas
-  data/mock.ts             # Personagem e anotações fictícias
-  screens/                 # Telas funcionais
-  styles.ts                # Cores e estilos compartilhados
-assets/images/camp.png     # Ilustração local
+App.tsx                         # Estado das fichas e navegação
+src/navigation.ts               # Parâmetros tipados das seis rotas
+src/data/codex.ts                # Classes, atributos, modelos e cálculos de nível 1
+src/screens/                    # Telas funcionais
+src/components/                 # Botões, estrutura de tela e conteúdo de classe
+src/styles.ts                   # Tema escuro, cores e Flexbox
+assets/images/codex-banner.png   # Imagem local
+tests/models.test.cjs           # Verificações dos modelos (Node, sem bibliotecas extras)
 ```
 
-O projeto utiliza componentes funcionais, Props, useState, View, Text, Image, Pressable, TextInput, StyleSheet e Flexbox. No celular, Screen utiliza ScrollView. Na web, Screen.web.tsx utiliza rolagem do navegador, sem declarar ScrollView. As listas utilizam FlatList, cujo mecanismo de rolagem é interno ao React Native.
+As listas usam FlatList/SectionList. A tela de detalhes usa ScrollView no celular e rolagem do navegador em `Screen.web.tsx`. Não há ScrollView declarado nas telas web; o mecanismo interno das listas é fornecido pelo React Native.
 
-A configuração original recomendava Expo Router. Foi substituído por React Navigation para atender ao enunciado do trabalho; não há roteamento por arquivos.
+O tema segue a referência mais recente: fundo escuro, cartões grafite, destaques verdes e banner ciano/violeta. A fonte é a do sistema; nenhuma fonte é baixada em execução.
 
-## Verificação
+## Verificações
+
+Requer Node compatível com Expo SDK 57; para os testes de TypeScript direto, use Node 22.13 ou superior.
 
 ```bash
 npm run typecheck
 npm run lint
+npm test
 npx expo-doctor
 npx expo export --platform all
 ```
 
-Roteiro manual no Expo Go:
+Os testes verificam catálogo, bônus +2/+1, orçamento de 36 pontos, limites, modificadores negativos, estatísticas e ausência de acúmulo de bônus.
 
-1. Abra a ficha e diminua/aumente a vida. Confira os limites 0 e 28.
-2. Volte ao início, reabra a ficha e confira que a vida foi mantida.
-3. Abra o diário, favorite/desfavorite uma anotação e teste o filtro.
-4. Crie uma anotação. Campos vazios devem exibir uma mensagem.
-5. Salve título e texto válidos. Confira a anotação na lista e o contador no início.
-6. Teste voltar, cancelar e digitar com o teclado aberto.
+Validação realizada no navegador: campos obrigatórios, criação direta e a partir da classe, pré-seleção, cancelamento, duas fichas com anotações independentes, guia, retorno e reinicialização dos dados. Layout conferido em 320 e 390 px.
 
-A compilação Android/iOS não substitui o teste físico no Expo Go.
+**Pendente:** teste físico no Expo Go, incluindo teclado, botão Voltar do Android e fonte ampliada. Compilar Android/iOS não substitui esse teste.
+
+## Histórico
+
+Implementação em `feat/codex-arcana-tp1`. O protótipo anterior permanece em `feat/caderno-rpg`. A branch do montador e a tag de entrega ainda não foram criadas.
+
+Escopo e decisões: [docs/ESCOPO-CODEX-ARCANA.md](docs/ESCOPO-CODEX-ARCANA.md).

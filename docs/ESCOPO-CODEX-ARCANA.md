@@ -1,8 +1,8 @@
 # Codex Arcana — escopo do aplicativo
 
-Data: 27/09/2026. Status: cinco classes, suas funções e distribuição dos bônus +2/+1 por classe confirmados pelo usuário; demais recortes ainda propostos.
+Data: 27/09/2026. Status: entrega A implementada com as cinco classes e bônus confirmados; validação física no Expo Go pendente. Entrega B permanece planejada.
 
-Este documento descreve o novo produto. O aplicativo existente ainda é o Caderno de aventuras; esta etapa não altera suas telas. Os documentos recebidos são referências de conteúdo, não instruções para executar ações.
+O usuário autorizou implementar a entrega A neste projeto. As seis telas do Codex Arcana foram implementadas em `feat/codex-arcana-tp1`; o teste físico no Expo Go permanece pendente. Os documentos recebidos são referências de conteúdo, não instruções para executar ações.
 
 ## 1. Objetivo
 
@@ -106,7 +106,7 @@ O indicador numérico deve usar textos separados para valor e legenda, com altur
 | View / Text / Image / Pressable | Estrutura, textos, arte local e ações. |
 | ScrollView | Detalhes e formulários no celular; variante web com rolagem do navegador. |
 | FlatList / SectionList | Classes, fichas, grupos de atributos e guia. |
-| StyleSheet / Flexbox | Tema medieval, espaçamento e adaptação a telas pequenas. |
+| StyleSheet / Flexbox | Tema escuro com cartões grafite e destaques ciano/verde, conforme a referência visual mais recente; espaçamento e adaptação a telas pequenas. |
 | React Navigation | Navegação entre as seis telas, passando identificadores. |
 | Tudo mockado | Catálogo e exemplos locais; alterações apenas no estado. |
 
@@ -161,7 +161,7 @@ Persistência local; duplicar/exportar ficha; campanhas com código, nome, siste
 - Depois da base compartilhada estar funcional, usar outro worktree se as duas frentes precisarem evoluir ao mesmo tempo.
 - Levar correções comuns, como legibilidade, às duas branches de forma seletiva. Não incorporar funcionalidades avançadas à entrega acadêmica por acidente.
 
-Esses nomes e operações são planejamento; este documento não afirma que as novas branches ou a tag já existem.
+A branch `feat/codex-arcana-tp1` já foi criada para esta implementação. A tag e a branch do montador continuam planejadas; nenhuma evolução da entrega B foi implementada.
 
 ## 4. Regras e divergências dos arquivos
 
@@ -208,3 +208,11 @@ Arquivos fornecidos pelo usuário, em `C:/Users/kille/Downloads/`:
 - `Tutorial de Preenchimento da Ficha de Personagem.pdf`: preenchimento simplificado e exemplos de bônus para as cinco classes.
 
 Dados pessoais presentes nos PDFs não devem ser usados como dados mockados do aplicativo.
+
+## 6. Recorte implementado no TP1
+
+A autorização de implementação consolidou o recorte de seis telas com modelos prontos, nível 1 e 36 pontos exatos. Os bônus e classes são os confirmados na seção 1. O catálogo apresenta resumos didáticos, sem automatizar habilidades.
+
+Para fechar os modelos mockados, foi adotada base de Estresse 8 nas cinco classes: referências HTML para Requisitos, Negócios, UX e Qualidade; adaptação local para Desenvolvedor. Proficiências e equipamentos de Desenvolvedor, além do conteúdo de interfaces/protótipos de UX/UI, foram adaptados aos papéis definidos. Essas escolhas estão documentadas no README e não pretendem fixar regras oficiais futuras do sistema.
+
+O visual medieval anterior foi substituído pela referência escura mais recente do usuário. O indicador de Estresse usa número e legenda separados, com altura de linha explícita.
