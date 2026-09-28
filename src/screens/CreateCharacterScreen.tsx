@@ -121,13 +121,13 @@ export function CreateCharacterScreen({ route, navigation, onCreate }: Props) {
               ]}
             >
               <ClassBadge classId={chosen.id} large />
-              <Text style={styles.eyebrow}>
+              <Text style={[styles.eyebrow, styles.centeredText]}>
                 NÍVEL 1 · {classLook[chosen.id].title.toUpperCase()}
               </Text>
-              <Text style={[styles.section, { textAlign: "center" }]}>
+              <Text style={[styles.section, styles.centeredText]}>
                 {step === 2 ? name.trim() : chosen.name}
               </Text>
-              <Text style={[styles.subtitle, { textAlign: "center" }]}>
+              <Text style={[styles.subtitle, styles.centeredText]}>
                 {step === 2 ? chosen.name : classLook[chosen.id].action}
               </Text>
             </View>

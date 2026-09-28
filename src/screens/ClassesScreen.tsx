@@ -51,10 +51,10 @@ export function ClassDetailScreen({
         <Text style={[styles.eyebrow, { color: look.color }]}>
           SEU PAPEL NA EQUIPE
         </Text>
-        <Text style={[styles.title, { textAlign: "center" }]}>
+        <Text style={[styles.title, styles.centeredText]}>
           {chosen.name}
         </Text>
-        <Text style={[styles.subtitle, { textAlign: "center" }]}>
+        <Text style={[styles.subtitle, styles.centeredText]}>
           {look.action}
         </Text>
       </View>

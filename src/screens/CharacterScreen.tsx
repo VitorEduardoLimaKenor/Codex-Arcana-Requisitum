@@ -80,10 +80,10 @@ export function CharacterScreen({
                   {character.example ? "EXEMPLO" : "PERSONAGEM PRONTO"} · NÍVEL
                   1
                 </Text>
-                <Text style={[styles.title, { textAlign: "center" }]}>
+                <Text style={[styles.title, styles.centeredText]}>
                   {character.name}
                 </Text>
-                <Text style={[styles.subtitle, { textAlign: "center" }]}>
+                <Text style={[styles.subtitle, styles.centeredText]}>
                   {chosen.name}
                 </Text>
               </View>

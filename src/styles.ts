@@ -35,6 +35,11 @@ export const styles = StyleSheet.create({
     lineHeight: 37,
   },
   subtitle: { fontSize: 15, lineHeight: 23, color: colors.muted },
+  centeredText: {
+    alignSelf: "stretch",
+    flexShrink: 0,
+    textAlign: "center",
+  },
   section: {
     fontSize: 20,
     color: colors.text,
