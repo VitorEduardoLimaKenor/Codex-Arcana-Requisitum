@@ -1,8 +1,9 @@
-import { SectionList, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View } from "react-native";
 import { Disclosure } from "../components/Disclosure";
+import { Screen } from "../components/Screen";
+import { PageHeader } from "../components/ui";
 import { attributes } from "../data/codex";
-import { styles } from "../styles";
+import { colors, fonts, styles } from "../styles";
 const sections = [
   {
     title: "Primeiros passos",
@@ -20,7 +21,7 @@ const sections = [
       {
         name: "Como criar no aplicativo",
         description:
-          "Escolha sua classe, dê um nome ao personagem e confira o resumo. Os 36 pontos já estão distribuídos. Toque em Salvar ficha para começar.",
+          "Abra Escolher personagem, leia as histórias e confira os atributos. Toque em Escolher este personagem. Sua ficha é salva no dispositivo, com 36 pontos já distribuídos.",
       },
       {
         name: "O que esta versão simplifica?",
@@ -104,37 +105,51 @@ const sections = [
       {
         name: "Onde ficam minhas fichas?",
         description:
-          "Nesta versão acadêmica, todas as fichas e anotações ficam em memória. Ao recarregar ou reiniciar o aplicativo, resta apenas a ficha demonstrativa. Nenhum dado é enviado a serviços externos.",
+          "As fichas e anotações ficam salvas na sua conta, neste aparelho. Apenas as salas e grupos usam o servidor de aventuras.",
       },
     ],
   },
 ];
+const quickStart = [
+  ["01", "Escolha um personagem", "Um profissional pronto, com atributos distribuídos."],
+  ["02", "Entre na sala da turma", "Pelo GPS ou pelo código que o Mestre mostrar."],
+  ["03", "Role quando o Mestre pedir", "Toque no atributo: d20 + modificador contra a CD."],
+];
+
 export function GuideScreen() {
   return (
-    <SafeAreaView edges={["bottom", "left", "right"]} style={styles.page}>
-      <SectionList
-        sections={sections}
-        keyExtractor={(item) => item.name}
-        stickySectionHeadersEnabled={false}
-        contentContainerStyle={styles.content}
-        ListHeaderComponent={
-          <View style={{ gap: 10 }}>
-            <Text style={styles.eyebrow}>APRENDA NO SEU RITMO</Text>
-            <Text style={styles.title}>Entenda sua ficha</Text>
-            <Text style={styles.subtitle}>
-              Toque em um assunto para descobrir como funciona.
-            </Text>
-          </View>
-        }
-        renderSectionHeader={({ section }) => (
-          <Text style={styles.section}>{section.title}</Text>
-        )}
-        renderItem={({ item }) => (
-          <Disclosure title={item.name}>
-            <Text style={styles.body}>{item.description}</Text>
-          </Disclosure>
-        )}
+    <Screen>
+      <PageHeader
+        eyebrow="Guia rápido"
+        title="Aprenda a jogar em 2 minutos"
+        subtitle="Comece pelos três passos. O resto fica aqui quando precisar."
       />
-    </SafeAreaView>
+      <View style={[styles.card, { gap: 16 }]}>
+        {quickStart.map(([n, title, text]) => (
+          <View key={n} style={{ flexDirection: "row", gap: 14 }}>
+            <Text style={{ color: colors.primary, fontFamily: fonts.mono, fontWeight: "700", marginTop: 2 }}>
+              {n}
+            </Text>
+            <View style={{ flex: 1, gap: 2 }}>
+              <Text style={[styles.body, { fontWeight: "700" }]}>{title}</Text>
+              <Text style={styles.label}>{text}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+      {sections.map((section, index) => (
+        <View key={section.title} style={{ gap: 8 }}>
+          <Text style={[styles.eyebrow, { color: colors.faint, marginBottom: 4 }]}>
+            {String(index + 1).padStart(2, "0")} {"// "}
+            {section.title}
+          </Text>
+          {section.data.map((item) => (
+            <Disclosure key={item.name} title={item.name}>
+              <Text style={[styles.body, { color: colors.muted }]}>{item.description}</Text>
+            </Disclosure>
+          ))}
+        </View>
+      ))}
+    </Screen>
   );
 }

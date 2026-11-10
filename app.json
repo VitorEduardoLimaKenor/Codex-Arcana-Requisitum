@@ -31,6 +31,22 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      "expo-sqlite",
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Permitir que o Codex fotografe o retrato do personagem?",
+          "microphonePermission": false,
+          "photosPermission": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Permitir que o Codex encontre salas pr\u00f3ximas enquanto voc\u00ea procura uma aventura?"
+        }
       ]
     ]
   }

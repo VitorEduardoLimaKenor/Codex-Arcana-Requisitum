@@ -422,6 +422,8 @@ export type Character = {
   milestone: string;
   note: string;
   example?: boolean;
+  templateId?: string;
+  portrait?: string;
 };
 export function advanceAtMilestone(character: Character, milestone: string): Character {
   if (character.level !== 1 || !milestone.trim()) return character;

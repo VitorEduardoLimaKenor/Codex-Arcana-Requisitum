@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import type { CharacterClass, ClassId } from "../data/codex";
-import { colors, styles } from "../styles";
+import { classPortraits } from "../data/characterImages";
+import { alpha, colors, fonts, styles } from "../styles";
 
 export const classLook: Record<
   ClassId,
@@ -37,6 +38,7 @@ export const classLook: Record<
     action: "Encontre falhas antes da entrega.",
   },
 };
+
 export function ClassBadge({
   classId,
   large = false,
@@ -50,15 +52,16 @@ export function ClassBadge({
       aria-hidden
       style={[
         local.badge,
-        { borderColor: look.color, backgroundColor: look.color + "18" },
+        { borderColor: alpha(look.color, 0.5), backgroundColor: alpha(look.color, 0.1) },
         large && local.large,
       ]}
     >
       <Text
         style={{
           color: look.color,
-          fontSize: large ? 36 : 24,
+          fontSize: large ? 34 : 18,
           fontWeight: "800",
+          fontFamily: fonts.mono,
         }}
       >
         {look.icon}
@@ -66,6 +69,8 @@ export function ClassBadge({
     </View>
   );
 }
+
+/** Card de classe com os dois personagens que a representam. */
 export function ClassCard({
   item,
   selected,
@@ -78,6 +83,7 @@ export function ClassCard({
   selection?: boolean;
 }) {
   const look = classLook[item.id];
+  const [first, second] = classPortraits[item.id];
   return (
     <Pressable
       accessibilityRole={selection ? "radio" : "button"}
@@ -87,51 +93,63 @@ export function ClassCard({
       onPress={onPress}
       style={({ pressed }) => [
         local.card,
-        selected && {
-          borderColor: look.color,
-          backgroundColor: look.color + "12",
-        },
+        selected && { borderColor: look.color },
         pressed && styles.pressed,
       ]}
     >
-      <ClassBadge classId={item.id} />
+      <View style={local.portraits} aria-hidden>
+        <Image source={first} style={[local.portrait, { borderColor: colors.card }]} />
+        <Image
+          source={second}
+          style={[local.portrait, local.second, { borderColor: colors.card }]}
+        />
+      </View>
       <View style={{ flex: 1, gap: 4 }}>
+        <Text style={[local.icon, { color: look.color }]}>
+          {look.icon} {item.primary} +2 · {item.secondary} +1
+        </Text>
         <Text style={local.name}>{look.title}</Text>
         <Text style={local.description}>{look.action}</Text>
-        <Text style={[local.bonus, { color: look.color }]}>
-          {item.primary} +2 · {item.secondary} +1
-        </Text>
       </View>
-      <Text
-        aria-hidden
-        style={{ color: selected ? look.color : colors.muted, fontSize: 20 }}
-      >
+      <Text aria-hidden style={{ color: selected ? look.color : colors.faint, fontSize: 22 }}>
         {selected ? "●" : "›"}
       </Text>
     </Pressable>
   );
 }
+
 const local = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 14,
     padding: 14,
-    borderRadius: 18,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
   },
   badge: {
-    width: 48,
-    height: 52,
-    borderRadius: 15,
+    width: 44,
+    height: 44,
+    borderRadius: 14,
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  large: { width: 88, height: 96, borderRadius: 26 },
+  large: { width: 88, height: 88, borderRadius: 26 },
+  portraits: { width: 84, height: 64 },
+  portrait: {
+    position: "absolute",
+    width: 56,
+    height: 56,
+    borderRadius: 18,
+    borderWidth: 2,
+    top: 0,
+    left: 0,
+  },
+  second: { top: 8, left: 28 },
+  icon: { fontFamily: fonts.mono, fontSize: 11, fontWeight: "700", letterSpacing: 0.4 },
   name: { color: colors.text, fontSize: 17, fontWeight: "700" },
   description: { color: colors.muted, fontSize: 13, lineHeight: 19 },
-  bonus: { fontSize: 11, fontWeight: "700", marginTop: 3 },
 });
